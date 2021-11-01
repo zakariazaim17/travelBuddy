@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".LoginScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+>
+
+        <TextView
+            android:layout_width="172dp"
+            android:layout_height="46dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="1sp"
+            android:text="Budy Radar"
+            android:textAlignment="center"
+            android:textColor="#FEFFF6"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="584dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="87dp"
+            android:background="@drawable/rounded_top_corners">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="127dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Login"
+                android:textAlignment="center"
+                android:textSize="34sp" />
+
+            <EditText
+                android:id="@+id/emailInputField"
+                android:layout_width="311dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/passwordInputField"
+                android:layout_alignStart="@+id/passwordInputField"
+                android:layout_alignEnd="@+id/passwordInputField"
+                android:layout_marginStart="-3dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="30dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/passwordInputField"
+                android:layout_width="281dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/login_btn"
+                android:layout_alignEnd="@+id/login_btn"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="41dp"
+                android:layout_marginEnd="-1dp"
+                android:layout_marginBottom="15dp"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/login_btn"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="191dp"
+                android:layout_marginEnd="63dp"
+                android:layout_marginBottom="72dp"
+                android:text="login"
+                app:icon="@drawable/ic_baseline_arrow_forward"
+                app:iconPadding="2dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="215dp"
+                android:layout_height="wrap_content"
+
+
+                android:layout_alignStart="@+id/passwordInputField"
+                android:layout_alignEnd="@+id/login_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="-2dp"
+                android:layout_marginEnd="67dp"
+                android:layout_marginBottom="20dp"
+                android:text="Don't have an account Regiter"
+                android:textColor="@color/black" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>
+

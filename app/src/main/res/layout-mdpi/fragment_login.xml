@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".LoginScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+>
+
+        <TextView
+            android:layout_width="172dp"
+            android:layout_height="46dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:lineSpacingExtra="1sp"
+            android:text="Budyy Radar"
+            android:textAlignment="center"
+            android:textColor="#FEFFF6"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="584dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="87dp"
+            android:background="@drawable/rounded_top_corners">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="127dp"
+                android:layout_height="53dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:text="Login"
+                android:textAlignment="center"
+                android:textSize="34sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>
+

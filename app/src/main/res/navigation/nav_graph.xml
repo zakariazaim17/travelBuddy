@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/firstFragment">
+
+    <fragment
+        android:id="@+id/firstFragment"
+        android:name="com.example.myapplication.FirstFragment"
+        android:label="fragment_first"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_firstFragment_to_secondFragment"
+            app:destination="@id/secondFragment" />
+        <action
+            android:id="@+id/action_firstFragment_to_mapScreen"
+            app:destination="@id/mapScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.example.myapplication.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_secondFragment_to_firstFragment"
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_secondFragment_to_mapScreen"
+            app:destination="@id/mapScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/spalsh"
+        android:name="com.example.myapplication.Spalsh"
+        android:label="fragment_spalsh"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_spalsh_to_firstFragment"
+            app:destination="@id/firstFragment" />
+        <action
+            android:id="@+id/action_spalsh_to_mapScreen"
+            app:destination="@id/mapScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapScreen"
+        android:name="com.example.myapplication.MapScreen"
+        android:label="fragment_map_screen"
+        tools:layout="@layout/fragment_map_screen" >
+        <action
+            android:id="@+id/action_mapScreen_to_feedScreen"
+            app:destination="@id/feedScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedScreen"
+        android:name="com.example.myapplication.FeedScreen"
+        android:label="fragment_feed_screen"
+        tools:layout="@layout/fragment_feed_screen" >
+        <action
+            android:id="@+id/action_feedScreen_to_detailScreen"
+            app:destination="@id/detailScreen" />
+        <action
+            android:id="@+id/action_feedScreen_to_mapScreen"
+            app:destination="@id/mapScreen" />
+        <action
+            android:id="@+id/action_feedScreen_to_chatScreen"
+            app:destination="@id/chatScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailScreen"
+        android:name="com.example.myapplication.DetailScreen"
+        android:label="fragment_detail_screen"
+        tools:layout="@layout/fragment_detail_screen" >
+        <action
+            android:id="@+id/action_detailScreen_to_feedScreen"
+            app:destination="@id/feedScreen" />
+        <action
+            android:id="@+id/action_detailScreen_to_mapScreen"
+            app:destination="@id/mapScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatScreen"
+        android:name="com.example.myapplication.ChatScreen"
+        android:label="fragment_chat_screen"
+        tools:layout="@layout/fragment_chat_screen" >
+        <action
+            android:id="@+id/action_chatScreen_to_singleMessageScreen"
+            app:destination="@id/singleMessageScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/singleMessageScreen"
+        android:name="com.example.myapplication.SingleMessageScreen"
+        android:label="fragment_single_message_screen"
+        tools:layout="@layout/fragment_single_message_screen" >
+        <action
+            android:id="@+id/action_singleMessageScreen_to_chatScreen"
+            app:destination="@id/chatScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileScreen"
+        android:name="com.example.myapplication.ProfileScreen"
+        android:label="fragment_profile_screen"
+        tools:layout="@layout/fragment_profile_screen" >
+        <action
+            android:id="@+id/action_profileScreen_to_chatScreen"
+            app:destination="@id/chatScreen" />
+        <action
+            android:id="@+id/action_profileScreen_to_feedScreen"
+            app:destination="@id/feedScreen" />
+        <action
+            android:id="@+id/action_profileScreen_to_mapScreen"
+            app:destination="@id/mapScreen" />
+        <action
+            android:id="@+id/action_profileScreen_to_secondFragment"
+            app:destination="@id/secondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEventScreen"
+        android:name="com.example.myapplication.AddEventScreen"
+        android:label="fragment_add_event_screen"
+        tools:layout="@layout/fragment_add_event_screen" >
+        <action
+            android:id="@+id/action_addEventScreen_to_mapScreen"
+            app:destination="@id/mapScreen" />
+        <action
+            android:id="@+id/action_addEventScreen_to_feedScreen"
+            app:destination="@id/feedScreen" />
+        <action
+            android:id="@+id/action_addEventScreen_to_chatScreen"
+            app:destination="@id/chatScreen" />
+        <action
+            android:id="@+id/action_addEventScreen_to_profileScreen"
+            app:destination="@id/profileScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPostScreen"
+        android:name="com.example.myapplication.AddPostScreen"
+        android:label="fragment_add_post_screen"
+        tools:layout="@layout/fragment_add_post_screen" >
+        <action
+            android:id="@+id/action_addPostScreen_to_mapScreen"
+            app:destination="@id/mapScreen" />
+        <action
+            android:id="@+id/action_addPostScreen_to_feedScreen"
+            app:destination="@id/feedScreen" />
+        <action
+            android:id="@+id/action_addPostScreen_to_chatScreen"
+            app:destination="@id/chatScreen" />
+        <action
+            android:id="@+id/action_addPostScreen_to_profileScreen"
+            app:destination="@id/profileScreen" />
+    </fragment>
+</navigation>
