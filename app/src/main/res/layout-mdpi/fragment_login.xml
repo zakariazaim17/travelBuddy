@@ -32,7 +32,7 @@
             android:background="@drawable/rounded_top_corners">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/register_textview"
                 android:layout_width="127dp"
                 android:layout_height="53dp"
                 android:layout_marginStart="30dp"

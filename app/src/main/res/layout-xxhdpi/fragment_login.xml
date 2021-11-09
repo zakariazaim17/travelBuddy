@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:lineSpacingExtra="1sp"
-            android:text="Budy Radar"
+            android:text="Buddy Radar"
             android:textAlignment="center"
             android:textColor="#FEFFF6"
             android:textSize="24sp" />
@@ -32,7 +32,7 @@
             android:background="@drawable/rounded_top_corners">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/login_textview"
                 android:layout_width="127dp"
                 android:layout_height="53dp"
                 android:layout_marginStart="30dp"
@@ -42,12 +42,12 @@
                 android:textSize="34sp" />
 
             <EditText
-                android:id="@+id/emailInputField"
+                android:id="@+id/editTextEmail"
                 android:layout_width="311dp"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/passwordInputField"
-                android:layout_alignStart="@+id/passwordInputField"
-                android:layout_alignEnd="@+id/passwordInputField"
+                android:layout_above="@+id/editTextPassword"
+                android:layout_alignStart="@+id/editTextPassword"
+                android:layout_alignEnd="@+id/editTextPassword"
                 android:layout_marginStart="-3dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="30dp"
@@ -57,7 +57,7 @@
                 android:minHeight="48dp" />
 
             <EditText
-                android:id="@+id/passwordInputField"
+                android:id="@+id/editTextPassword"
                 android:layout_width="281dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/login_btn"
@@ -87,7 +87,7 @@
                 app:iconPadding="2dp" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/register_textview"
                 android:layout_width="215dp"
                 android:layout_height="wrap_content"
 
@@ -98,7 +98,7 @@
                 android:layout_marginStart="-2dp"
                 android:layout_marginEnd="67dp"
                 android:layout_marginBottom="20dp"
-                android:text="Don't have an account Regiter"
+                android:text="Don't have an account Register"
                 android:textColor="@color/black" />
 
 

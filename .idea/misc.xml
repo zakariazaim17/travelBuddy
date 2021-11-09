@@ -12,8 +12,9 @@
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-land/fragment_login.xml" value="0.1" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-ldpi/fragment_login.xml" value="0.9" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-mdpi-notouch/fragment_login.xml" value="0.33" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-mdpi/fragment_login.xml" value="0.9" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-xxhdpi/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-mdpi/fragment_login.xml" value="0.75" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-xxhdpi/fragment_login.xml" value="0.14" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-xxhdpi/fragment_register.xml" value="0.18" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-xxxhdpi/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_add_event_screen.xml" value="0.20260416666666667" />
@@ -22,14 +23,14 @@
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_detail_screen.xml" value="0.14351851851851852" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_feed_screen.xml" value="0.18055555555555555" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_first.xml" value="0.1" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_login.xml" value="0.25" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_map_screen.xml" value="0.22" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_profile_screen.xml" value="0.23333333333333334" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_register.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_second.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_single_message_screen.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_spalsh.xml" value="0.25" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_splash.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_splash.xml" value="0.18" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/login.xml" value="0.33" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/loginfragment.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/register.xml" value="0.20260416666666667" />
