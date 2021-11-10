@@ -15,6 +15,10 @@ class MainViewModel(private val repository:Repository): ViewModel() {
     val registerResponse:MutableLiveData<Response<RegistrationResponse>> = MutableLiveData()
     //login
     val loginResponse:MutableLiveData<Response<LoginResponse>> = MutableLiveData()
+    //follow
+    val followResponse: MutableLiveData<Response<FollowResponse>> = MutableLiveData()
+    val unfollowResponse: MutableLiveData<Response<FollowResponse>> = MutableLiveData()
+
 
 
 
@@ -31,6 +35,21 @@ class MainViewModel(private val repository:Repository): ViewModel() {
         viewModelScope.launch {
             val response:Response<LoginResponse> = repository.login(user)
             loginResponse.value = response
+        }
+    }
+    //Follow
+
+    fun followUser(token:String,users:Follow){
+        viewModelScope.launch {
+            val response:Response<FollowResponse> = repository.FollowUser(token, users)
+            followResponse.value = response
+        }
+    }
+
+    fun unfollowUser(token: String, users: Unfollow){
+        viewModelScope.launch {
+            val response:Response<FollowResponse> = repository.UnfollowUSer(token, users)
+            unfollowResponse.value = response
         }
     }
 }

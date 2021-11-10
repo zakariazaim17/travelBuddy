@@ -4,6 +4,7 @@ import com.example.myapplication.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface BuddyRadarApi {
@@ -22,4 +23,17 @@ interface BuddyRadarApi {
     ):Response<LoginResponse>
 
     //
+
+    @POST("following/follow")
+    suspend fun followUser(
+        @Header("Authorization") token: String,
+        @Body users:Follow
+
+    ):Response<FollowResponse>
+
+    @POST("following/unfollow")
+    suspend fun unFollowUser(
+        @Header("Authorization") token: String,
+        @Body users: Unfollow
+    ):Response<FollowResponse>
 }

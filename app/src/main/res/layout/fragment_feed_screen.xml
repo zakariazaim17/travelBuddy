@@ -3,16 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FeedScreen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.FeedScreen">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    <TextView
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_Floating_Btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FEED" />
-    </RelativeLayout>
+        android:layout_gravity="bottom|right"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Add"
+        android:src="@drawable/ic_add"
+        app:tint="#eeeee4"
+        app:backgroundTint="@color/black"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addPost_Floating_Btn"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:backgroundTint="#eeeee4"
+        android:contentDescription="Add"
+        android:text="Post"
+        app:icon="@drawable/ic_wallpaper"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/addPlan_Floating_Btn"
+android:text="Plan"
+        android:backgroundTint="#eeeee4"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:contentDescription="Add"
+        app:icon="@drawable/ic_map"/>
+
 </FrameLayout>

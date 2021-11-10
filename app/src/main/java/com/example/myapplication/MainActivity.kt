@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.Switch
 import android.window.SplashScreen
 import android.window.SplashScreenView
 import androidx.fragment.app.Fragment
+import com.example.myapplication.screens.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     public fun replaceCurrentFragment(fragment: Fragment) {
-        if (fragment is com.example.myapplication.SplashScreen || fragment is LoginScreen || fragment is RegisterScreen) {
+        if (fragment is com.example.myapplication.screens.SplashScreen || fragment is LoginScreen || fragment is RegisterScreen) {
             bottom_navigation.visibility = View.GONE
         }else {
             bottom_navigation.visibility = View.VISIBLE
@@ -55,4 +57,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         }
+
+    public fun MainContext():Context{
+        return applicationContext
+    }
     }

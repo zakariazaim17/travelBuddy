@@ -14,4 +14,11 @@ class Repository {
     suspend fun login(user:LoginUser):Response<LoginResponse>{
         return  RetrofitInstance.api.login(user)
     }
+
+    suspend fun FollowUser(token:String,users:Follow):Response<FollowResponse>{
+        return  RetrofitInstance.api.followUser(token,users)
+    }
+    suspend fun UnfollowUSer(token:String, users: Unfollow):Response<FollowResponse>{
+        return RetrofitInstance.api.unFollowUser(token, users)
+    }
 }

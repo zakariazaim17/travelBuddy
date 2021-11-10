@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.screens
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.myapplication.*
 import com.example.myapplication.model.LoginUser
 import com.example.myapplication.repository.Repository
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -89,7 +90,7 @@ val user = LoginUser(editTextEmail.text.toString(), editTextPassword.text.toStri
                             editor.apply {
                                 putString("User_token", response.body()?.data?.token.toString())
                             }.apply()
-                        Toast.makeText(context, response.body()?.data?.token.toString() , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "login successfully" , Toast.LENGTH_SHORT).show()
                         (activity as MainActivity).replaceCurrentFragment((MapScreen()))
                     }
                     Log.d("Main1", response.body()?.data?.token.toString())

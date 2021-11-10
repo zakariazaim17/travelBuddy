@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.screens
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.MainActivity
+import com.example.myapplication.MainViewModel
+import com.example.myapplication.R
 import com.example.myapplication.repository.Repository
 import kotlinx.android.synthetic.main.fragment_splash.*
 import java.util.*
@@ -55,6 +58,11 @@ class SplashScreen : Fragment() {
 
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val userToken: String? = sharedPreferences.getString("User_token",null);
+        val mapAnimated:Boolean? = sharedPreferences.getBoolean("mapAnimated", false)
+        val editor:SharedPreferences.Editor = sharedPreferences.edit();
+        editor.apply {
+            putBoolean("mapAnimated", false)
+        }.apply()
 
         Handler(Looper.myLooper()!!).postDelayed({
 
@@ -67,7 +75,7 @@ class SplashScreen : Fragment() {
             }
 
 
-        }, 5000)
+        }, 500)
     }
 
 }

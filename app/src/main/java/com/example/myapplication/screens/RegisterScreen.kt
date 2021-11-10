@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.screens
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.myapplication.MainViewModel
+import com.example.myapplication.MainViewModelFactory
+import com.example.myapplication.R
 import com.example.myapplication.model.RegisterUser
 import com.example.myapplication.repository.Repository
 
