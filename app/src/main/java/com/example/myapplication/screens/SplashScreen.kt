@@ -69,13 +69,14 @@ class SplashScreen : Fragment() {
 
 
             if (userToken != null){
+                    Log.d("dd", "{\"description\": \"hellothreree\", \"image\":\"https://1.bp.blogspot.com/-lIfFZILZhBg/WyfY50xXXFI/AAAAAAAABEE/fGD29MdIHhIGwcf0tdvl6lz8uRYQSNcOgCLcBGAs/w1200-h630-p-k-no-nu/android-retrofit-2-crud-example.jpg\"}")
                 (activity as MainActivity).replaceCurrentFragment(MapScreen())
             }else{
                 (activity as MainActivity).replaceCurrentFragment(LoginScreen())
             }
 
 
-        }, 500)
+        }, 3000)
     }
 
 }

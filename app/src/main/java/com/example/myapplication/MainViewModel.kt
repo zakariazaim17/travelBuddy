@@ -6,7 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.*
 import com.example.myapplication.repository.Repository
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
+import java.io.File
 
 class MainViewModel(private val repository:Repository): ViewModel() {
 
@@ -18,6 +21,9 @@ class MainViewModel(private val repository:Repository): ViewModel() {
     //follow
     val followResponse: MutableLiveData<Response<FollowResponse>> = MutableLiveData()
     val unfollowResponse: MutableLiveData<Response<FollowResponse>> = MutableLiveData()
+
+    //post
+    val createPostResponse: MutableLiveData<Response<CreatePostResponse>> = MutableLiveData()
 
 
 
@@ -50,6 +56,14 @@ class MainViewModel(private val repository:Repository): ViewModel() {
         viewModelScope.launch {
             val response:Response<FollowResponse> = repository.UnfollowUSer(token, users)
             unfollowResponse.value = response
+        }
+    }
+
+    fun createPost(token:String, post:CreatePost ){
+        viewModelScope.launch {
+            val response:Response<CreatePostResponse> = repository.createPost(token, post )
+            createPostResponse.value = response
+
         }
     }
 }

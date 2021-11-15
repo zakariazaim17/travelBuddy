@@ -19,6 +19,9 @@ class MyInterceptor : Interceptor{
        // val userToken: String? = sharedPreferences.getString("User_token",null);
         val request: Request = chain.request()
             .newBuilder()
+         //  .addHeader("Content-Type", "application/json")
+           //.addHeader("Accept", "multipart/form-data")
+            //.addHeader("Accept", "application/json")
             //.addHeader("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtYWluIiwiaXNzIjoiaHR0cDovLzAuMC4wLjA6ODA4Mi8iLCJleHAiOjE2NjgwODg1ODMsInVzZXJJZCI6IjYxODUwMzA0YTY3NDUxMjQ5MzBhYzJkNiJ9._vLaTWAOEdmRI5BLQDlR0TZsQnu8IMywDwzhLM6pAgc")
             .build()
 

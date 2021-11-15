@@ -34,11 +34,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="302dp"
+            android:layout_width="match_parent"
+            android:layout_height="301dp"
             android:layout_below="@+id/TextView_header"
             android:layout_marginTop="20dp"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            android:src="@mipmap/ic_postpicture" />
 
         <EditText
             android:id="@+id/editText_PostDescription"
@@ -51,17 +51,17 @@
             android:ems="10"
             android:gravity="top"
             android:hint="Description"
-            android:padding="8dp"
             android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
             android:maxWidth="380dp"
-
             android:maxLines="8"
-            android:minLines="3" />
+
+            android:minLines="3"
+            android:padding="8dp" />
 
         <Button
             android:id="@+id/button_uploadPost"
             android:layout_width="125dp"
-            android:layout_height="43dp"
+            android:layout_height="48dp"
             android:layout_below="@+id/editText_PostDescription"
             android:layout_alignEnd="@+id/editText_PostDescription"
 
@@ -69,16 +69,53 @@
 
             android:text="Upload" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="67dp"
-            android:layout_height="55dp"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_Floating_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView"
+
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="1dp"
-            android:layout_marginEnd="9dp"
-            android:backgroundTint="@color/black"
-            android:contentDescription="Button for adding image"
-            tools:src="@drawable/ic_wallpaper" />
+            android:layout_gravity="top|right"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="Add"
+            android:src="@drawable/ic_wallpaper"
+            app:backgroundTint="@color/black"
+            app:tint="#eeeee4" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_ImageCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView"
+
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="top|right"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="Add"
+            android:src="@drawable/ic_camera"
+            app:backgroundTint="@color/black"
+            app:tint="#eeeee4" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_ImageGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView"
+
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="top|right"
+            android:layout_marginStart="16dp"
+
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="Add"
+            android:src="@drawable/ic_new_imgfolder"
+            app:backgroundTint="@color/black"
+            app:tint="#eeeee4" />
     </RelativeLayout>
 </FrameLayout>

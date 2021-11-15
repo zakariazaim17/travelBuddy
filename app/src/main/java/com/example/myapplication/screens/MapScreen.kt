@@ -2,6 +2,7 @@ package com.example.myapplication.screens
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,12 +12,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.MainActivity
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.MainViewModelFactory
 import com.example.myapplication.R
+import com.example.myapplication.model.CreatePost
 import com.example.myapplication.model.Follow
 import com.example.myapplication.model.Unfollow
 import com.example.myapplication.repository.Repository
@@ -29,6 +33,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.Boolean.getBoolean
+import java.util.jar.Manifest
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,10 +50,12 @@ class MapScreen : Fragment(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MapsInitializer.initialize(requireContext());
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     private  lateinit var mMap :GoogleMap
@@ -64,6 +71,8 @@ class MapScreen : Fragment(), OnMapReadyCallback {
 
             val rootView =  inflater.inflate(R.layout.fragment_map_screen, container, false)
 
+        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
 return  rootView
 
 
@@ -83,10 +92,30 @@ return  rootView
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+val post = CreatePost("salamo", "imageherherehre")
+        sportBtn.setOnClickListener {
+            viewModel.createPost(token="Bearer ${userToken.toString()}", post)
+            viewModel.followResponse.observe(viewLifecycleOwner, {response ->
+                if(response.isSuccessful){
+                    if(!response.body()!!.success){
+                        Toast.makeText(context, response.body()?.message, Toast.LENGTH_LONG).show()
+                    }else{
+                        //save token for later use
+
+                        Toast.makeText(context, "follow successfully" , Toast.LENGTH_SHORT).show()
+
+                    }
+                    Log.d("Main1", response.body().toString())
+                    Log.d("Main1", response.code().toString())
+                    Log.d("Main1", response.message())
+                }else{
+                    Log.d("Main1", response.errorBody().toString())
+                }
+
+            })
+        }
 
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
-        mapFragment.getMapAsync(this)
 val users = Follow("6179b4e15c5c4430042c5319", "61850139a6745124930ac2d5")
         travelBtn.setOnClickListener {
 viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
@@ -98,7 +127,7 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
                         //save token for later use
 
                         Toast.makeText(context, "follow successfully" , Toast.LENGTH_SHORT).show()
-                        (activity as MainActivity).replaceCurrentFragment((MapScreen()))
+                        //(activity as MainActivity).replaceCurrentFragment((MapScreen()))
                     }
                     Log.d("Main1", response.body().toString())
                     Log.d("Main1", response.code().toString())
@@ -144,6 +173,7 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
  fun initializeMap() {
 
         mMap = googleMap!!
+
         val sydney = LatLng(60.1699, 24.9384)
         val cameraPosition = CameraPosition.Builder()
             .target(sydney) // Sets the center of the map to Mountain View
@@ -152,9 +182,24 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
             .tilt(30f)            // Sets the tilt of the camera to 30 degrees
             .build()
         mMap.uiSettings.isCompassEnabled = false
+
+           /*
+           if (ContextCompat.checkSelfPermission(requireContext(),
+                   android.Manifest.permission.ACCESS_FINE_LOCATION)
+               == PackageManager.PERMISSION_GRANTED) {
+               locationPermissionGranted = true
+           } else {
+               ActivityCompat.requestPermissions(requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                   PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+           }
+
+            mMap.isMyLocationEnabled = true
+
+           mMap.uiSettings.isMyLocationButtonEnabled = true
+            */
            if(mapAnimated == false){
                Log.d("anim", mapAnimated.toString())
-               mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 3000, null)
+               mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null)
                editor.apply {
                    putBoolean("mapAnimated", true)
                }.apply()
