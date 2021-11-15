@@ -8,8 +8,9 @@ import android.widget.Switch
 import android.window.SplashScreen
 import android.window.SplashScreenView
 import androidx.fragment.app.Fragment
+import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.screens.*
-import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     val mapFragment = MapScreen()
@@ -19,14 +20,17 @@ class MainActivity : AppCompatActivity() {
     val splashFragment = SplashScreen()
     val loginFragment = LoginScreen()
     val registerFragment = RegisterScreen()
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+         binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         replaceCurrentFragment(splashFragment)
 
-        bottom_navigation.setOnNavigationItemSelectedListener {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_map -> replaceCurrentFragment(mapFragment)
                 R.id.ic_feed -> replaceCurrentFragment(feedFragment)
@@ -39,9 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     public fun replaceCurrentFragment(fragment: Fragment) {
         if (fragment is com.example.myapplication.screens.SplashScreen || fragment is LoginScreen || fragment is RegisterScreen) {
-            bottom_navigation.visibility = View.GONE
+           binding.bottomNavigation.visibility = View.GONE
         }else {
-            bottom_navigation.visibility = View.VISIBLE
+            binding.bottomNavigation.visibility = View.VISIBLE
         }
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragmentContainerView, fragment)

@@ -15,36 +15,22 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.myapplication.*
+import com.example.myapplication.databinding.FragmentLoginBinding
+import com.example.myapplication.databinding.FragmentMapScreenBinding
 import com.example.myapplication.model.LoginUser
 import com.example.myapplication.repository.Repository
-import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_login.login_btn
-import kotlinx.android.synthetic.main.fragment_login.register_textview
-import kotlinx.android.synthetic.main.fragment_register.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FirstFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+private var _binding: FragmentLoginBinding? = null
+private val binding get() = _binding!!
 
 private lateinit var viewModel: MainViewModel
 class LoginScreen : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -52,10 +38,16 @@ class LoginScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+       return binding.root
 
-        view.findViewById<TextView>(R.id.register_textview).setOnClickListener { Navigation.findNavController(view).navigate(R.id.action_firstFragment_to_secondFragment) }
-        return  view
+       // view.findViewById<TextView>(R.id.register_textview).setOnClickListener { Navigation.findNavController(view).navigate(R.id.action_firstFragment_to_secondFragment) }
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,14 +63,14 @@ class LoginScreen : Fragment() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        register_textview.setOnClickListener{
+        binding.registerTextview?.setOnClickListener{
             (activity as MainActivity).replaceCurrentFragment(RegisterScreen())
 
         }
 
-        login_btn.setOnClickListener {
+        binding.loginBtn?.setOnClickListener {
 
-val user = LoginUser(editTextEmail.text.toString(), editTextPassword.text.toString())
+val user = LoginUser(binding.editTextEmail?.text.toString(), binding.editTextPassword?.text.toString())
 
             viewModel.login(user)
             viewModel.loginResponse.observe(viewLifecycleOwner, {response ->
@@ -96,10 +88,6 @@ val user = LoginUser(editTextEmail.text.toString(), editTextPassword.text.toStri
                     Log.d("Main1", response.body()?.data?.token.toString())
                     Log.d("Main1", response.code().toString())
                     Log.d("Main1", response.message())
-
-
-
-
                 }else{
                     Log.d("Main1", response.errorBody().toString())
 
@@ -113,23 +101,5 @@ val user = LoginUser(editTextEmail.text.toString(), editTextPassword.text.toStri
 
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FirstFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginScreen().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

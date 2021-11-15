@@ -36,24 +36,12 @@ interface BuddyRadarApi {
         @Body users: Unfollow
     ):Response<FollowResponse>
 
+    //Post
     @POST("post/createe")
-    suspend fun createPostis(
+    suspend fun createPost(
         @Header("Authorization") token:String,
         @Body post:CreatePost
     ):Response<CreatePostResponse>
-    /*
-    //Post
-    @Multipart
-    @POST("post/create")
-    suspend fun createPost(
 
-        @Header("Content-Type") contentType:String,
-        @Header("Authorization") token: String,
-        @Part postData:MultipartBody.Part,
-        //@Part postImage:MultipartBody.Part,
-
-
-    ):Response<CreatePostResponse>
-    */
 
 }

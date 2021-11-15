@@ -14,13 +14,15 @@ import androidx.navigation.Navigation
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.MainViewModelFactory
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentRegisterBinding
+import com.example.myapplication.databinding.FragmentSingleMessageScreenBinding
 import com.example.myapplication.model.RegisterUser
 import com.example.myapplication.repository.Repository
 
-import kotlinx.android.synthetic.main.fragment_register.*
 
 
-
+private var _binding: FragmentRegisterBinding? = null
+private val binding get() = _binding!!
 private lateinit var viewModel: MainViewModel
 class RegisterScreen : Fragment() {
 
@@ -35,9 +37,15 @@ class RegisterScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-       return inflater.inflate(R.layout.fragment_register, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+       return binding.root
 
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,8 +56,8 @@ val repository = Repository()
 
 
 
-        register_btn.setOnClickListener {
-            val newUser = RegisterUser(editTextTextEmail.text.toString(), editTextTextPersonName.text.toString(), editTextTextPassword.text.toString())
+        binding.registerBtn?.setOnClickListener {
+            val newUser = RegisterUser(binding.editTextTextEmail?.text.toString(), binding.editTextTextPersonName.text.toString(), binding.editTextTextPassword?.text.toString())
 
             viewModel.createUser(newUser)
             viewModel.registerResponse.observe(viewLifecycleOwner, {response ->
@@ -58,7 +66,7 @@ val repository = Repository()
                     Log.d("Main1", response.code().toString())
                     Log.d("Main1", response.message())
                     Toast.makeText(context, "Registered successfully",Toast.LENGTH_SHORT).show()
-                    editTextTextEmail.text.clear()
+                    binding.editTextTextEmail?.text?.clear()
 
 
                 }else{
@@ -67,7 +75,7 @@ val repository = Repository()
                 }
 
             })
-           // (activity as MainActivity).replaceCurrentFragment(LoginScreen())
+            // (activity as MainActivity).replaceCurrentFragment(LoginScreen())
         }
     }
 

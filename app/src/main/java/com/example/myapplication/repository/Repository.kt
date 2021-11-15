@@ -31,25 +31,9 @@ class Repository {
         return RetrofitInstance.api.unFollowUser(token, users)
     }
     suspend fun createPost(token: String, post:CreatePost):Response<CreatePostResponse> {
-
-        return RetrofitInstance.api.createPostis(token, post)
+        return RetrofitInstance.api.createPost(token, post)
     }
-        //val filePart: RequestBody = fili!!.asRequestBody("image/*".toMediaTypeOrNull())
-      /*  Log.d("repoheretoken", token)
-        Log.d("repoherepostdata", Gson().toJson(post_data))
-        Log.d("repohereimagefili", post_image.toString())
-*/
 
-
-            /*token=token,
-            contentType="multipart/form-data",
-            postData= MultipartBody.Part.createFormData("post_data",
-                Gson().toJson(post_data)),
-
-                /* postImage= MultipartBody.Part.createFormData("post_image",
-                    post_image.name,
-                    post_image.asRequestBody())*/
-*/
 
 
 

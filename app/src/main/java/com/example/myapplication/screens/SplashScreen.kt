@@ -16,15 +16,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.MainActivity
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.R
+import com.example.myapplication.databinding.FragmentSplashBinding
 import com.example.myapplication.repository.Repository
-import kotlinx.android.synthetic.main.fragment_splash.*
 import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
-
+private var _binding: FragmentSplashBinding?= null
+private val binding get() = _binding!!
 
 class SplashScreen : Fragment() {
     // TODO: Rename and change types of parameters
@@ -44,11 +45,18 @@ class SplashScreen : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+
+        return binding.root
     }
 
 
@@ -69,7 +77,6 @@ class SplashScreen : Fragment() {
 
 
             if (userToken != null){
-                    Log.d("dd", "{\"description\": \"hellothreree\", \"image\":\"https://1.bp.blogspot.com/-lIfFZILZhBg/WyfY50xXXFI/AAAAAAAABEE/fGD29MdIHhIGwcf0tdvl6lz8uRYQSNcOgCLcBGAs/w1200-h630-p-k-no-nu/android-retrofit-2-crud-example.jpg\"}")
                 (activity as MainActivity).replaceCurrentFragment(MapScreen())
             }else{
                 (activity as MainActivity).replaceCurrentFragment(LoginScreen())
