@@ -22,9 +22,9 @@ class MainViewModel(private val repository:Repository): ViewModel() {
     val followResponse: MutableLiveData<Response<FollowResponse>> = MutableLiveData()
     val unfollowResponse: MutableLiveData<Response<FollowResponse>> = MutableLiveData()
 
-    //post
+    //posts
     val createPostResponse: MutableLiveData<Response<CreatePostResponse>> = MutableLiveData()
-
+    val getAllPostsResponse:MutableLiveData<Response<List<GetAllPostResponse>>> = MutableLiveData()
 
 
 
@@ -64,6 +64,13 @@ class MainViewModel(private val repository:Repository): ViewModel() {
             val response:Response<CreatePostResponse> = repository.createPost(token, post )
             createPostResponse.value = response
 
+        }
+    }
+
+    fun getAllPosts(token: String){
+        viewModelScope.launch {
+            val response:Response<List<GetAllPostResponse>> = repository.getAllPosts(token)
+            getAllPostsResponse.value = response
         }
     }
 }

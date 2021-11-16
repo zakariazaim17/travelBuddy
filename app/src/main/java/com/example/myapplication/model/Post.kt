@@ -12,3 +12,12 @@ data class CreatePostResponse(
     val success:Boolean,
     val message:String
 )
+data class GetAllPostResponse(
+    val imageUrl:String,
+    val userId:String,
+    val timestamp:Long,
+    val description:String,
+    val likeCount:Int = 0,
+    val commentCount:Int = 0,
+    val id:String,
+)

@@ -163,7 +163,7 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
             .tilt(30f)            // Sets the tilt of the camera to 30 degrees
             .build()
         mMap.uiSettings.isCompassEnabled = false
-        mMap.isMyLocationEnabled = true
+
 
            /*
            if (ContextCompat.checkSelfPermission(requireContext(),

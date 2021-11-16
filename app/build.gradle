@@ -80,5 +80,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
     implementation 'com.google.firebase:firebase-storage-ktx'
 
+    //coil Image Loader
+    implementation("io.coil-kt:coil:1.4.0")
 
 }

@@ -33,6 +33,9 @@ class Repository {
     suspend fun createPost(token: String, post:CreatePost):Response<CreatePostResponse> {
         return RetrofitInstance.api.createPost(token, post)
     }
+    suspend fun getAllPosts(token:String):Response<List<GetAllPostResponse>>{
+        return RetrofitInstance.api.getAllPosts(token= token)
+    }
 
 
 

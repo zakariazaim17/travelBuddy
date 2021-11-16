@@ -1,19 +1,31 @@
 package com.example.myapplication.screens
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.myapplication.MainActivity
-import com.example.myapplication.R
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentFeedScreenBinding
+import com.example.myapplication.model.GetAllPostResponse
+import com.example.myapplication.repository.Repository
+import okhttp3.internal.concurrent.formatDuration
 
 
-
+private lateinit var viewModel: MainViewModel
 private var _binding:FragmentFeedScreenBinding? = null
 private val binding get()= _binding!!
+private var userToken:String? = null
+private var listOfPosts:List<GetAllPostResponse>? = null
 
 class FeedScreen : Fragment() {
 
@@ -52,6 +64,7 @@ class FeedScreen : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFeedScreenBinding.inflate(layoutInflater, container, false)
+
         return binding.root
     }
 
@@ -60,12 +73,74 @@ class FeedScreen : Fragment() {
         _binding = null
     }
 
+    public fun showExpandableImage(url:String){
+        binding.expandableImageImageView.load(url){
+            formatDuration(200)
+        }
+        binding.expandableImageImageView.visibility = View.VISIBLE
+
+    }
+
+    public fun closeExpandableImage(){
+        binding.expandableImageImageView.visibility = View.GONE
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+
+
+        userToken = sharedPreferences.getString("User_token",null);
+
         binding.addPlanFloatingBtn.shrink()
         binding.addPostFloatingBtn.shrink()
         binding.addPlanFloatingBtn.visibility = View.GONE
         binding.addPostFloatingBtn.visibility = View.GONE
+        binding.emptyPostAnimation.visibility = View.GONE
+        binding.textEmptyStateTextview.visibility = View.GONE
+        binding.expandableImageImageView.visibility = View.GONE
+
+
+        val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        binding.postsRecyclerView.layoutManager = layoutManager
+
+
+
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
+        viewModel.getAllPosts(token = "Bearer ${userToken.toString()}")
+
+
+        viewModel.getAllPostsResponse.observe(viewLifecycleOwner, {response ->
+            if (response.isSuccessful){
+                if (response.body()?.size!! > 0 ){
+                    binding.emptyPostAnimation.visibility = View.GONE
+                    binding.textEmptyStateTextview.visibility = View.GONE
+                    listOfPosts = response.body()
+                    Log.d("fetchPosts", response.body().toString())
+                        binding.postsRecyclerView.adapter = Adapter(listOfPosts!!)
+
+                }else{
+                    binding.emptyPostAnimation.visibility = View.VISIBLE
+                    binding.textEmptyStateTextview.visibility = View.VISIBLE
+
+                    Log.d("fetchPosts", "List is empty???")
+                }
+
+            }else{
+
+                Log.d("fetchPosts", response.errorBody().toString())
+
+            }
+        })
+
+
+
 
         binding.addFloatingBtn.setOnClickListener {
             Log.d("floatingBtn", isFabOpen.toString())
@@ -77,6 +152,10 @@ class FeedScreen : Fragment() {
         binding.addPlanFloatingBtn.setOnClickListener {
             (activity as MainActivity).replaceCurrentFragment(AddEventScreen())
 
+        }
+
+        binding.expandableImageImageView.setOnClickListener {
+            closeExpandableImage()
         }
 
     }

@@ -5,207 +5,159 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".screens.FeedScreen">
-
-    <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
+    <LinearLayout
+        android:id="@+id/upperLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:backgroundTint="#FFFAF0"
+        android:gravity="top">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_Floating_Btn"
+        <TextView
+            android:layout_width="163dp"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins"
+            android:text="Buddy Radar🇫🇮"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="20sp" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/search_button"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|right"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="37dp"
-            android:layout_marginBottom="48dp"
-            android:contentDescription="Add"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/black"
-            app:tint="#eeeee4" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/addPost_Floating_Btn"
-
+            android:layout_marginLeft="3dp"
+            app:icon="@drawable/ic_search"
+            app:iconTint="@color/black" />
+        <Button
+            android:id="@+id/filter_button"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|right"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="50dp"
-            android:backgroundTint="#eeeee4"
-            android:contentDescription="Add"
-            android:text="Post"
-            app:icon="@drawable/ic_wallpaper"
-            tools:ignore="DuplicateClickableBoundsCheck" />
+            android:layout_marginLeft="3dp"
+            app:icon="@drawable/ic_filter"
+            app:iconTint="@color/black" />
+    </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/addPlan_Floating_Btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|right"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="49dp"
-            android:backgroundTint="#eeeee4"
-            android:contentDescription="Add"
-            android:text="Plan"
-            app:icon="@drawable/ic_map" />
-
-        <LinearLayout
-            android:id="@+id/upperLayoutGroup"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/upperLayout"
+            android:layout_marginTop="0dp">
 
-            <TextView
-                android:id="@+id/textView2"
 
-                android:layout_width="257dp"
-                android:layout_height="45dp"
-                android:layout_weight="1"
-                android:text="Feed Posts"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/posts_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="#FFFAF0"
 
-            <Button
-                android:id="@+id/button"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                tools:listitem="@layout/custom_post_row" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_Floating_Btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:icon="@drawable/ic_search"
-                android:text="Filter"
-                android:textColor="@color/black"
-                app:iconTint="@color/black"/>
-        </LinearLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="37dp"
+                android:layout_marginBottom="48dp"
+                android:contentDescription="Add"
+                android:src="@drawable/ic_add"
+                app:backgroundTint="@color/black"
+                app:tint="#eeeee4" />
 
-        <LinearLayout
-            android:id="@+id/firstPostLayout"
-            android:layout_width="match_parent"
-            android:layout_height="349dp"
-            android:layout_below="@+id/upperLayoutGroup"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/rounded_first_post">
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/addPost_Floating_Btn"
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="#eeeee4"
+                android:contentDescription="Add"
+                android:text="Post"
+                app:icon="@drawable/ic_wallpaper"
+                tools:ignore="DuplicateClickableBoundsCheck" />
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="67dp"
-                    android:layout_height="65dp"
-                    android:src="@mipmap/ic_prof1picture_round" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="352dp"
-                    android:layout_height="65dp"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="Anastazia"
-                    android:textSize="16sp"
-                    android:textStyle="bold|italic" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="190dp"
-
-                android:src="@mipmap/ic_post1picture" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/addPlan_Floating_Btn"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/likeBtn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:text=""
-                    android:textColor="@color/black"
-                    app:icon="@drawable/ic_celebration"
-                    app:iconGravity="textStart"
-                    app:iconTint="@color/black"
-                    app:tint="@color/black"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom|right"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="49dp"
+                android:backgroundTint="#eeeee4"
+                android:contentDescription="Add"
+                android:text="Plan"
+                app:icon="@drawable/ic_map" />
 
-                <Button
-                    android:id="@+id/commentBtn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:text=""
-                    android:textColor="@color/black"
-                    app:icon="@drawable/ic_baseline_chat_24"
-                    app:iconGravity="textStart"
-                    app:iconTint="@color/black"
-                    app:tint="@color/black"
-                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/emptyPostAnimation"
 
-                <Button
-                    android:id="@+id/shareBtn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:text=""
-
-                    android:textColor="@color/black"
-                    app:icon="@drawable/ic_baseline_screen_share_24"
-                    app:iconGravity="textStart"
-                    app:iconTint="@color/black"
-                    app:tint="@color/black"
-                    tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
-            </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:adjustViewBounds="true"
+                android:background="@color/overlay"
+                app:layout_constraintVertical_bias="0.4"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/empty"
+                app:lottie_speed="1"
+                tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="65dp"
-                android:text="Content of the Post will be here ..."
-                android:textSize="16sp" />
+                android:id="@+id/textEmptyState_textview"
+                android:layout_width="203dp"
+                android:layout_height="80dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="50dp"
+                android:gravity="center"
+                android:text="Seems that no posts are there, be the first to Post 🔥"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
 
 
-        </LinearLayout>
 
 
-
-
+        </RelativeLayout>
+        <ImageView
+            android:id="@+id/expandableImage_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/overlay"
+            android:src="@mipmap/ic_postpicture_foreground" />
     </RelativeLayout>
 </FrameLayout>

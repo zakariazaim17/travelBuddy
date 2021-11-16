@@ -28,13 +28,13 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/imageView"
             android:scaleType="fitCenter"
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             android:layout_below="@+id/TextView_header"
             android:layout_marginTop="20dp"
-            android:src="@mipmap/ic_postpicture" />
+            android:src="@mipmap/ic_emptyimageplaceholder2_foreground" />
 
         <EditText
             android:id="@+id/editText_PostDescription"

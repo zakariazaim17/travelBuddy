@@ -61,7 +61,7 @@
                     android:id="@+id/sportBtn"
                     android:layout_width="0dp"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-android:backgroundTint="#e8eaef"
+                        android:backgroundTint="#e8eaef"
 
                     app:iconTint="@color/green"
                     android:layout_height="wrap_content"

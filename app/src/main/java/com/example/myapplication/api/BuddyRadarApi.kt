@@ -36,12 +36,17 @@ interface BuddyRadarApi {
         @Body users: Unfollow
     ):Response<FollowResponse>
 
-    //Post
+    //Posts
+
     @POST("post/createe")
     suspend fun createPost(
         @Header("Authorization") token:String,
         @Body post:CreatePost
     ):Response<CreatePostResponse>
 
+    @GET("post/all")
+    suspend fun getAllPosts(
+        @Header("Authorization") token:String,
+    ):Response<List<GetAllPostResponse>>
 
 }

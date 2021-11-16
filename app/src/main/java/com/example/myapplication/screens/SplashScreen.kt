@@ -20,17 +20,12 @@ import com.example.myapplication.databinding.FragmentSplashBinding
 import com.example.myapplication.repository.Repository
 import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 private var _binding: FragmentSplashBinding?= null
 private val binding get() = _binding!!
 
 class SplashScreen : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var viewModel: MainViewModel
 
@@ -38,10 +33,7 @@ class SplashScreen : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
 
     }
 
