@@ -10,6 +10,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.http.Multipart
 import java.io.File
 
@@ -35,6 +36,12 @@ class Repository {
     }
     suspend fun getAllPosts(token:String):Response<List<GetAllPostResponse>>{
         return RetrofitInstance.api.getAllPosts(token= token)
+    }
+    suspend fun getPostComments(token: String, postId:String):Response<List<GetCommentsResponse>>{
+        return RetrofitInstance.api.getPostComments(token = token, postId = postId)
+    }
+    suspend fun createComment(token: String, comment:CreateComment):Response<CreateCommentResponse>{
+        return RetrofitInstance.api.createComment(token, comment)
     }
 
 

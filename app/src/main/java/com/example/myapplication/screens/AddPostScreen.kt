@@ -29,6 +29,9 @@ import com.example.myapplication.model.CreatePost
 import com.example.myapplication.repository.Repository
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.IO
+import okhttp3.Dispatcher
 
 
 import java.io.File
@@ -37,8 +40,7 @@ import kotlin.random.Random
 
 
 
-private var _binding: FragmentAddPostScreenBinding? = null
-private val binding get()= _binding!!
+
 
 private var isFabOpen :Boolean = false
 private var ImageUri:Uri ?= null
@@ -49,8 +51,13 @@ private var isAnimated:Boolean = false
 
 class AddPostScreen : Fragment() {
 
+    private var _binding: FragmentAddPostScreenBinding? = null
+    private val binding get()= _binding!!
+
     private val CAMERA_REQUEST_CODE = 200
     private val GALLERY_REQUEST_CODE = 300
+    var process: Job? = null
+    var process2: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,18 +69,27 @@ class AddPostScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddPostScreenBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+
+        process?.cancel()
+        process2?.cancel()
         _binding = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        process?.cancel()
+        process2?.cancel()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.uploadPostAnimation.visibility = View.GONE
-        binding.uploadPostAnimation.alpha = 0.0f
+        binding?.uploadPostAnimation.visibility = View.GONE
+        binding?.uploadPostAnimation.alpha = 0.0f
 
 
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
@@ -85,12 +101,12 @@ class AddPostScreen : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
 
-        binding.addFloatingBtn.setOnClickListener {
+        binding?.addFloatingBtn.setOnClickListener {
             openGalleryForImage()
         }
 
 
-        binding.buttonUploadPost.setOnClickListener {
+        binding?.buttonUploadPost.setOnClickListener {
 
             uploadImageToFirebase(ImageUri!!)
 
@@ -116,10 +132,10 @@ class AddPostScreen : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE && data != null){
-            binding.imageView.setImageURI(data?.data) // handle chosen image
+            binding?.imageView.setImageURI(data?.data) // handle chosen image
             ImageUri = data?.data
         }else if(resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST_CODE && data != null){
-            binding.imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
+            binding?.imageView.setImageBitmap(data.extras?.get("data") as Bitmap)
 
             ImageUri = data?.data
         }
@@ -127,12 +143,21 @@ class AddPostScreen : Fragment() {
 
 //To upload post
     private fun uploadImageToFirebase(uri:Uri){
-    Log.d("pic", uri.toString())
-    binding.buttonUploadPost.isEnabled = false
-    binding.uploadPostAnimation.visibility = View.VISIBLE
-    binding.uploadPostAnimation.animate().alpha(1.0f)
-    binding.addFloatingBtn.isEnabled = false
-    binding.editTextPostDescription.isEnabled = false
+    process= CoroutineScope(Dispatchers.IO).launch {
+
+        requireActivity().runOnUiThread(java.lang.Runnable {
+            binding.buttonUploadPost.isEnabled = false
+            binding.uploadPostAnimation.visibility = View.VISIBLE
+            binding.uploadPostAnimation.animate().alpha(1.0f)
+            binding.addFloatingBtn.isEnabled = false
+            binding.editTextPostDescription.isEnabled = false
+        })
+
+
+
+
+        Log.d("pic", uri.toString())
+
 
         var filePath:Array<String> = arrayOf(MediaStore.Images.Media.DATA)
         var c:Cursor? = requireActivity().contentResolver.query(
@@ -154,17 +179,25 @@ class AddPostScreen : Fragment() {
 
         upload
             .addOnFailureListener {
-         Toast.makeText(requireContext(), "Couldn't upload image to firebase", Toast.LENGTH_LONG ).show()
-        }.addOnSuccessListener { taskSnapshot ->
-            imageRef.downloadUrl.addOnSuccessListener { url->
+                Toast.makeText(requireContext(), "Couldn't upload image to firebase", Toast.LENGTH_LONG ).show()
+            }.addOnSuccessListener { taskSnapshot ->
+                imageRef.downloadUrl.addOnSuccessListener { url->
 
-                uploadPostToServer(url.toString())
+                   if (_binding !=null) {
+                        uploadPostToServer(url.toString())
+                    }else{
+                        Log.d("statuss", "you where?")
+                   }
 
+
+                }
             }
-        }
+    }
+
     }
 //upload to ktor server
     private fun uploadPostToServer(url:String) {
+
 
 
         val postPart:CreatePost =CreatePost(binding.editTextPostDescription.text.toString(),url)
@@ -172,7 +205,10 @@ class AddPostScreen : Fragment() {
         viewModel.createPost(token = "Bearer ${userToken.toString()}",post=postPart)
 
         viewModel.createPostResponse.observe(viewLifecycleOwner, {response ->
-            binding.uploadPostAnimation.visibility = View.GONE
+            requireActivity().runOnUiThread(java.lang.Runnable {
+                binding.uploadPostAnimation.visibility = View.GONE
+            })
+
             if(response.isSuccessful){
 
                 if(response.body()!!.success){
@@ -188,11 +224,11 @@ class AddPostScreen : Fragment() {
 
 
 
-
-
-
         })
     }
+
+
+
 
     //controls the animations of the Floating buttons
 

@@ -13,4 +13,5 @@
     <color name="green">#52EB80</color>
     <color name="blueSky">#337BAB</color>
     <color name="grey">#AABBDD</color>
+    <color name="backOfCard">#edf6f9</color>
 </resources>

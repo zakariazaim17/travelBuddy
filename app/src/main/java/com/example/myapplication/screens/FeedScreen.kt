@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentFeedScreenBinding
+import com.example.myapplication.model.CreateComment
 import com.example.myapplication.model.GetAllPostResponse
 import com.example.myapplication.repository.Repository
 import okhttp3.internal.concurrent.formatDuration
@@ -26,6 +27,7 @@ private var _binding:FragmentFeedScreenBinding? = null
 private val binding get()= _binding!!
 private var userToken:String? = null
 private var listOfPosts:List<GetAllPostResponse>? = null
+
 
 class FeedScreen : Fragment() {
 
@@ -119,11 +121,13 @@ class FeedScreen : Fragment() {
         viewModel.getAllPostsResponse.observe(viewLifecycleOwner, {response ->
             if (response.isSuccessful){
                 if (response.body()?.size!! > 0 ){
+                    binding.loadingPostAnimation.visibility = View.GONE
+
                     binding.emptyPostAnimation.visibility = View.GONE
                     binding.textEmptyStateTextview.visibility = View.GONE
                     listOfPosts = response.body()
                     Log.d("fetchPosts", response.body().toString())
-                        binding.postsRecyclerView.adapter = Adapter(listOfPosts!!)
+                        binding.postsRecyclerView.adapter = Adapter(listOfPosts!!, requireContext(), viewModel)
 
                 }else{
                     binding.emptyPostAnimation.visibility = View.VISIBLE
@@ -158,6 +162,17 @@ class FeedScreen : Fragment() {
             closeExpandableImage()
         }
 
+    }
+
+    fun postComment(comment: CreateComment):Boolean {
+        viewModel.createPostcomment(token = "Bearer ${userToken.toString()}",comment )
+        var responseResult:Boolean = false
+        viewModel.createCommentResponse.observe(viewLifecycleOwner, {response ->
+            if (response.isSuccessful){
+                responseResult = response.body()?.success!!
+            }else{Log.d("postingComment", response.errorBody().toString())}
+        })
+        return responseResult
     }
 
 

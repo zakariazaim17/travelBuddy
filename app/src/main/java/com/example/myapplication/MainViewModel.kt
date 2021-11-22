@@ -26,6 +26,9 @@ class MainViewModel(private val repository:Repository): ViewModel() {
     val createPostResponse: MutableLiveData<Response<CreatePostResponse>> = MutableLiveData()
     val getAllPostsResponse:MutableLiveData<Response<List<GetAllPostResponse>>> = MutableLiveData()
 
+    //Comments
+    val getPostcommentResponse:MutableLiveData<Response<List<GetCommentsResponse>>> = MutableLiveData()
+    val createCommentResponse:MutableLiveData<Response<CreateCommentResponse>> = MutableLiveData()
 
 
 //ViewModelsFunctions
@@ -71,6 +74,20 @@ class MainViewModel(private val repository:Repository): ViewModel() {
         viewModelScope.launch {
             val response:Response<List<GetAllPostResponse>> = repository.getAllPosts(token)
             getAllPostsResponse.value = response
+        }
+    }
+
+    fun getPostComments(token: String, postId:String){
+        viewModelScope.launch {
+            val response:Response<List<GetCommentsResponse>> = repository.getPostComments(token, postId)
+            getPostcommentResponse.value = response
+        }
+    }
+
+    fun createPostcomment(token:String, comment:CreateComment){
+        viewModelScope.launch {
+            val response:Response<CreateCommentResponse> = repository.createComment(token, comment)
+            createCommentResponse.value = response
         }
     }
 }

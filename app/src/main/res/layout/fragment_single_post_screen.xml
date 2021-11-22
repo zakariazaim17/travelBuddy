@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.SinglePostScreen"
+    android:background="@color/backOfCard"
+    >
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="@color/black"
+        >
+
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:backgroundTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+                <Button
+                    android:id="@+id/back_Button"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="64dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    app:icon="@drawable/ic_back"
+                    app:iconTint="@color/black" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/seeSimilarPosts_Button"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="See Similar Posts"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <ImageView
+                    android:id="@+id/singlePostImage_ImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    android:backgroundTint="@color/black">
+
+                    <TextView
+                        android:id="@+id/postLikesSum_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_height="match_parent"
+                         />
+
+                    <TextView
+                        android:id="@+id/postCommentsSum_TextView"
+                        android:layout_width="wrap_content"
+android:layout_marginLeft="7dp"
+
+                        android:layout_height="match_parent"
+                        />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:backgroundTint="@color/black">
+
+                    <TextView
+                        android:paddingHorizontal="10dp"
+                        android:id="@+id/postDescription_TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/commentLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:backgroundTint="@color/black"
+                    >
+
+                    <ImageView
+                        android:id="@+id/userProfileImage_ImageView"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
+
+                    <EditText
+
+                        android:id="@+id/comment_EditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="Add a comment ... " />
+
+                    <Button
+                        android:id="@+id/sendComment_button"
+                        style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="3dp"
+                        app:icon="@drawable/ic_send"
+                        app:iconTint="@color/black" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comments_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="265dp"
+            android:backgroundTint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</FrameLayout>

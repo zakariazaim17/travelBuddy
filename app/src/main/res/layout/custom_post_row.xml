@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
 
-    android:backgroundTint="#F8F8FF">
+    android:background="@android:color/transparent">
 
 
     <LinearLayout
@@ -26,14 +26,16 @@
                 android:scaleType="centerCrop"
                 android:id="@+id/postImage_imageView"
                 android:layout_width="match_parent"
-
                 android:layout_height="345dp"
+                android:background="@color/backOfCard"
                  />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/backOfCard"
+                >
 
                 <Button
                     android:id="@+id/like_button"
@@ -83,19 +85,66 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/backOfCard"
+                >
 
                 <TextView
+                    android:ellipsize="end"
+                        android:maxLines="2"
                     android:id="@+id/description_textView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="10dp"
                     android:fontFamily="@font/poppins"
-                    android:text="here wil be desc content"
+                    android:text="here will be desc content"
                     android:textSize="16sp" />
 
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/commentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@color/backOfCard"
+
+                >
+
+                <ImageView
+                    android:id="@+id/userProfileImage_ImageView"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp" />
+
+                <EditText
+
+                    android:id="@+id/comment_EditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Add a comment ... " />
+
+                <Button
+                    android:id="@+id/sendComment_button"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    app:icon="@drawable/ic_send"
+                    app:iconTint="@color/black" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/seeAllComments_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:background="@drawable/ronded_bottom_corners"
+
+                android:text="View all comments"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

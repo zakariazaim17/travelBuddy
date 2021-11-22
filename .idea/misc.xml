@@ -12,10 +12,14 @@
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_event_background.xml" value="0.2456081081081081" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21574074074074073" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_postPic_background.xml" value="0.18885135135135134" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_send.xml" value="0.1266891891891892" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ic_wallpaper.xml" value="0.2456081081081081" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/ronded_bottom_corners.xml" value="0.17331081081081082" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/rounded_all_corners.xml" value="0.2456081081081081" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/rounded_first_post.xml" value="0.1570945945945946" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/rounded_small_bottom.xml" value="0.17331081081081082" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/rounded_top_corners.xml" value="0.21574074074074073" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/rounded_top_left.xml" value="0.17331081081081082" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/drawable/simple_corners.xml" value="0.1625" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-hdpi/fragment_login.xml" value="0.1259259259259259" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-land/fragment_login.xml" value="0.1" />
@@ -26,6 +30,7 @@
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-xxhdpi/fragment_register.xml" value="0.18" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout-xxxhdpi/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/custom_comment_row.xml" value="0.16" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/custom_post_row.xml" value="0.17736486486486486" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_add_event_screen.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_add_post_screen.xml" value="0.18" />
@@ -39,6 +44,7 @@
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_register.xml" value="0.33" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_second.xml" value="0.14722222222222223" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_single_message_screen.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_single_post_screen.xml" value="0.15472972972972973" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_spalsh.xml" value="0.25" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/fragment_splash.xml" value="0.18" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/MyApplication/app/src/main/res/layout/login.xml" value="0.33" />

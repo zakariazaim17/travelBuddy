@@ -159,5 +159,24 @@
             android:layout_height="match_parent"
             android:background="@color/overlay"
             android:src="@mipmap/ic_postpicture_foreground" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingPostAnimation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintVertical_bias="0.4"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            app:lottie_speed="1"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 </FrameLayout>
