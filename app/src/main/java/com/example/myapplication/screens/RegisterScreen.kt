@@ -15,7 +15,7 @@ import com.example.myapplication.MainViewModel
 import com.example.myapplication.MainViewModelFactory
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentRegisterBinding
-import com.example.myapplication.databinding.FragmentSingleMessageScreenBinding
+
 import com.example.myapplication.model.RegisterUser
 import com.example.myapplication.repository.Repository
 

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,7 @@ import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.example.myapplication.*
 import com.example.myapplication.databinding.FragmentSinglePostScreenBinding
+import com.example.myapplication.model.CreateComment
 import com.example.myapplication.model.GetAllPostResponse
 import com.example.myapplication.model.GetCommentsResponse
 import com.example.myapplication.repository.Repository
@@ -88,10 +90,21 @@ class SinglePostScreen(post: GetAllPostResponse? = null) : Fragment() {
 
                             binding.commentsRecyclerView.adapter = CommentsAdapter(listOfComments!!)
                         }else{
+
                             binding.commentLayout.visibility = View.VISIBLE
                             binding.postDescriptionTextView.visibility = View.GONE
                             binding.commentsRecyclerView.visibility = View.VISIBLE
                             Log.d("GetComments", "No comments yet")
+                        }
+                        binding.sendCommentButton.setOnClickListener {
+
+
+
+                            viewModel.createPostcomment("Bearer ${userToken.toString()}", CreateComment(binding.commentEditText.text.toString(), singlePost?.id!!))
+                            Toast.makeText(requireContext(), "Comment Posted", Toast.LENGTH_SHORT).show()
+                            binding.commentEditText.text.clear()
+                            viewModel.getPostComments(token = "Bearer ${userToken.toString()}", postId = singlePost?.id.toString())
+
                         }
                     }else{
                         Log.d("GetComments", response.errorBody().toString())
@@ -107,7 +120,7 @@ class SinglePostScreen(post: GetAllPostResponse? = null) : Fragment() {
 
 
         }
-        binding.postLikesSumTextView.text = "${singlePost?.likeCount} Likes"
+        binding.postLikesSumTextView.text = "${singlePost?.likeCount} Cheers"
         binding.postDescriptionTextView.text = singlePost?.description
         binding.postCommentsSumTextView.text = "${singlePost?.commentCount} Comments"
         binding.backButton.setOnClickListener {

@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.example.myapplication.databinding.CustomPostRowBinding
 import com.example.myapplication.model.CreateComment
@@ -39,9 +40,19 @@ val context:Context = context
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.commentLayout.visibility = View.GONE
-        holder.binding.seeAllCommentsTextView.visibility = View.GONE
+        holder.binding.parentContainer.removeView(holder.binding.seeAllCommentsTextView)
         val post = posts[position]
         holder.binding.descriptionTextView.text = post.description
+
+        holder.binding.posterImageImageView.load(post.profileImageUrl){
+            crossfade(true)
+            crossfade(90)
+            transformations(CircleCropTransformation())
+
+        }
+
+
+        holder.binding.posterUserNameTextView.text = post.username
 
         holder.binding.sendCommentButton.setOnClickListener {
 
@@ -69,7 +80,8 @@ Toast.makeText(context, "Comment Posted", Toast.LENGTH_LONG).show()
         }
         holder.binding.commentButton.setOnClickListener {
             holder.binding.commentLayout.visibility = View.VISIBLE
-            holder.binding.seeAllCommentsTextView.visibility = View.VISIBLE
+            holder.binding.parentContainer.addView(holder.binding.seeAllCommentsTextView)
+            //holder.binding.seeAllCommentsTextView.visibility = View.VISIBLE
         }
         holder.binding.seeAllCommentsTextView.setOnClickListener {
             (holder.itemView.context as MainActivity).replaceCurrentFragment(SinglePostScreen(post))

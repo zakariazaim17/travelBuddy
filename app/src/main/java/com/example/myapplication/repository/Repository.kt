@@ -1,18 +1,9 @@
 package com.example.myapplication.repository
 
-import android.util.Log
 import com.example.myapplication.api.RetrofitInstance
 import com.example.myapplication.model.*
 
-import com.google.gson.Gson
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.http.Multipart
-import java.io.File
 
 class Repository {
 
@@ -42,6 +33,9 @@ class Repository {
     }
     suspend fun createComment(token: String, comment:CreateComment):Response<CreateCommentResponse>{
         return RetrofitInstance.api.createComment(token, comment)
+    }
+    suspend fun getFilteredPlans(token: String, category:String, subCategory:String?):Response<List<GetAllPlansResponse>>{
+        return RetrofitInstance.api.getFilteredPlans(token= token, category= category, subCategory=subCategory)
     }
 
 

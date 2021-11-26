@@ -7,8 +7,8 @@
     <stroke android:width="2dp" android:color="@color/backOfCard"/>
     <corners
 
-        android:bottomLeftRadius="40dp"
-        android:bottomRightRadius="40dp"
+        android:bottomLeftRadius="25dp"
+        android:bottomRightRadius="25dp"
 
 
         />

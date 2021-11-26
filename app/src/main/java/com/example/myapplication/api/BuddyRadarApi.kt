@@ -1,9 +1,6 @@
 package com.example.myapplication.api
 
 import com.example.myapplication.model.*
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -45,7 +42,7 @@ interface BuddyRadarApi {
         @Body post:CreatePost
     ):Response<CreatePostResponse>
 
-    @GET("post/all")
+    @GET("posts/all")
     suspend fun getAllPosts(
         @Header("Authorization") token:String,
     ):Response<List<GetAllPostResponse>>
@@ -63,4 +60,13 @@ interface BuddyRadarApi {
         @Header("Authorization") token:String,
         @Body comment:CreateComment
     ):Response<CreateCommentResponse>
+
+
+    //Plans
+    @GET("plan/filter")
+    suspend fun getFilteredPlans(
+        @Query("category") category:String,
+        @Query("subCategory") subCategory:String?,
+        @Header("Authorization") token: String?,
+    ):Response<List<GetAllPlansResponse>>
 }

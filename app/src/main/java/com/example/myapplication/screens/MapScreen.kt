@@ -1,8 +1,13 @@
 package com.example.myapplication.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,35 +17,65 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.MainActivity
-import com.example.myapplication.MainViewModel
-import com.example.myapplication.MainViewModelFactory
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.*
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentMapScreenBinding
-import com.example.myapplication.databinding.FragmentProfileScreenBinding
+import java.util.*
+
+
 import com.example.myapplication.model.CreatePost
 import com.example.myapplication.model.Follow
 import com.example.myapplication.model.Unfollow
 import com.example.myapplication.repository.Repository
 import com.google.android.gms.maps.*
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.Boolean.getBoolean
 import java.util.jar.Manifest
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+
+import android.graphics.drawable.Drawable
+import com.example.myapplication.utils.Constants
+
+import com.google.android.gms.maps.model.BitmapDescriptor
+
+
+
 
 private var _binding: FragmentMapScreenBinding? = null
 private val binding get() = _binding!!
-
+private var geocode: Geocoder ?= null
+private  lateinit var mMap :GoogleMap
+private var userToken:String?= null
 class MapScreen : Fragment(), OnMapReadyCallback {
+
+    private val markObj = object:GoogleMap.OnMarkerDragListener {
+
+
+        override fun onMarkerDrag(p0: Marker) {
+            Log.d("ggg", "started")
+        }
+
+        override fun onMarkerDragEnd(p0: Marker) {
+            Log.d("ggg", p0.position.toString())
+        }
+
+        override fun onMarkerDragStart(p0: Marker) {
+            Log.d("ggg", "sttt")
+        }
+
+    }
+
+    private var helsinki = LatLng(60.1699, 24.9384)
 
     private lateinit var viewModel: MainViewModel
 
@@ -48,11 +83,11 @@ class MapScreen : Fragment(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MapsInitializer.initialize(requireContext());
-
+geocode = Geocoder(requireContext())
 
     }
 
-    private  lateinit var mMap :GoogleMap
+
     private var mapReady = false
     private var isFabOpen :Boolean = false
 
@@ -84,66 +119,72 @@ class MapScreen : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val userToken: String? = sharedPreferences.getString("User_token",null);
+         userToken = sharedPreferences.getString("User_token",null);
 
+        val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        binding.plansRecyclerView.layoutManager = layoutManager
 
+        binding.plansRecyclerView.visibility = View.GONE
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
        binding.sportBtn.setOnClickListener {
-            Log.d("sport", "sport")
+           filterPlans(Constants.SPORT)
+
         }
 
-
-val users = Follow("6179b4e15c5c4430042c5319", "61850139a6745124930ac2d5")
         binding.travelBtn.setOnClickListener {
-viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
-            viewModel.followResponse.observe(viewLifecycleOwner, {response ->
-                if(response.isSuccessful){
-                    if(!response.body()!!.success){
-                        Toast.makeText(context, response.body()?.message, Toast.LENGTH_LONG).show()
-                    }else{
-                        //save token for later use
+            filterPlans(Constants.TRIP)
 
-                        Toast.makeText(context, "follow successfully" , Toast.LENGTH_SHORT).show()
-                        //(activity as MainActivity).replaceCurrentFragment((MapScreen()))
-                    }
-                    Log.d("Main1", response.body().toString())
-                    Log.d("Main1", response.code().toString())
-                    Log.d("Main1", response.message())
-                }else{
-                    Log.d("Main1", response.errorBody().toString())
-                }
-
-            })
         }
 
         binding.eventBtn.setOnClickListener {
-            val users1 = Unfollow("61850139a6745124930ac2d5", "61850304a6745124930ac2d6")
+            filterPlans(Constants.EVENT)
 
-            viewModel.unfollowUser(token = "Bearer ${userToken.toString()}",users1)
-            viewModel.unfollowResponse.observe(viewLifecycleOwner, {response ->
-                if (response.isSuccessful){
-                    if(!response.body()!!.success) {
-                        Toast.makeText(context, response.body()?.message, Toast.LENGTH_LONG).show()
-
-
-                    } else{
-                        Toast.makeText(context, "successfully unfollow", Toast.LENGTH_LONG).show()
-                    }
-                    Log.d("Main2", response.body().toString())
-                    Log.d("Main2", response.code().toString())
-                    Log.d("Main2", response.message())
-                }else{
-                    Log.d("Main2", response.errorBody().toString())
-
-                }
-            })
         }
 
 
+    }
+
+    private fun filterPlans(category:String){
+
+        viewModel.getCurrentUserPlans(token = "Bearer ${userToken.toString()}", category = category, null)
+        viewModel.getCurrentUserPlansResponse.observe(viewLifecycleOwner, {response->
+            if (response.isSuccessful){
+                if (response.body()?.size!! > 0){
+                    binding.plansRecyclerView.visibility = View.VISIBLE
+                    when(category){
+                         "sport" -> binding.plansRecyclerView.adapter = SportPlansAdapter(response.body()!!)
+                        "event" -> binding.plansRecyclerView.adapter = EventPlansAdapter(response.body()!!)
+                        "trip" ->binding.plansRecyclerView.adapter = TripPlansAdapter(response.body()!!)
+                    }
+
+                }else{
+                    binding.plansRecyclerView.visibility = View.GONE
+                    Log.d("fetchingPlans", "seems user doesn't have plans")
+                }
+            }else{
+                Log.d("fetchingPlans", response.errorBody().toString())
+            }
+        })
+    }
+
+    public fun navigateBetweenPlans(location:LatLng){
+        val helsinki = LatLng(location.latitude, location.longitude)
+        val cameraPosition = CameraPosition.Builder()
+            .target(helsinki) // Sets the center of the map to Mountain View
+            .zoom(13f)// Sets the zoom
+            // Sets the orientation of the camera to east
+            .tilt(30f)            // Sets the tilt of the camera to 30 degrees
+            .build()
+
+        mMap.clear()
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000, null)
+       // val icon :BitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_fire)
+        mMap.addMarker(MarkerOptions().position(helsinki))
     }
 
     override fun onMapReady(googleMap: GoogleMap)  {
@@ -155,7 +196,7 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
 
         mMap = googleMap!!
 
-        val helsinki = LatLng(60.1699, 24.9384)
+
         val cameraPosition = CameraPosition.Builder()
             .target(helsinki) // Sets the center of the map to Mountain View
             .zoom(13f)            // Sets the zoom
@@ -163,6 +204,10 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
             .tilt(30f)            // Sets the tilt of the camera to 30 degrees
             .build()
         mMap.uiSettings.isCompassEnabled = false
+        mMap.addMarker(MarkerOptions().position(helsinki))
+
+
+
 
 
            /*
@@ -199,17 +244,49 @@ viewModel.followUser(token = "Bearer ${userToken.toString()}",users)
 
 
 
+    /*override fun onMarkerDrag(p0: Marker) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onMarkerDragEnd(p0: Marker) {
+        Log.d("MarkerUpdd", p0.position.toString() )
+    }
+
+    override fun onMarkerDragStart(p0: Marker) {
+        TODO("Not yet implemented")
+    }*/
 
 
-
-
-
-
-
-      //  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F), 4000, null )
+    //  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F), 4000, null )
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F))
        // mMap.moveCamera(CameraUpdateFactory.zoomTo(15F))
         //mMap.setMaxZoomPreference(14.0f)
 
 
 }
+
+/*
+helsinki = LatLng( 60.20759890000001, 24.9668617)
+           val cameraPosition = CameraPosition.Builder()
+               .target(helsinki) // Sets the center of the map to Mountain View
+               .zoom(13f)// Sets the zoom
+                        // Sets the orientation of the camera to east
+               .tilt(30f)            // Sets the tilt of the camera to 30 degrees
+               .build()
+           mMap.clear()
+           mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000, null)
+           mMap.addMarker(MarkerOptions().position(helsinki).draggable(true))
+        val listOfAddress:List<Address> =
+            geocode?.getFromLocationName("Bengalinpolku 1E17,00560,Helsinki",1) as List<Address>
+           val adreess:Address = listOfAddress.get(0)
+           Log.d("whatAddress", "${adreess.longitude} && ${adreess.latitude}")
+
+
+           /*mMap.setOnMarkerClickListener( GoogleMap.OnMarkerDragListener {
+               @Override fun onMarkerDragEnd(Marker marker){
+                    Log.d("markerUpdate", marker.)
+               }
+           })*/
+
+mMap.setOnMarkerDragListener(markObj)
+ */

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dp"
+    >
+
+    <LinearLayout
+
+        android:id="@+id/parentPlanLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+
+        android:layout_marginHorizontal="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rounded_card"
+        android:elevation="2dp">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/plannerProfileImage_ImageView"
+                android:layout_width="60dp"
+                android:layout_height="50dp" />
+
+
+
+            <TextView
+                android:id="@+id/plannerUserName_Textview"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/poppins"
+                android:paddingLeft="8dp"
+
+                android:gravity="center_vertical"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/tripTime_TextView"
+                android:layout_width="108dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="here time" />
+
+            <Button
+                android:id="@+id/subCategory_Button"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+
+
+                app:iconGravity="textTop"
+                app:iconSize="34dp"
+                app:iconTint="@color/green" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sportTitle_TextView"
+                android:layout_width="131dp"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+
+                android:ellipsize="end"
+                android:paddingLeft="8dp"/>
+
+
+            <TextView
+                android:id="@+id/sportPlace_TextView"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="place" />
+
+            <Button
+                android:id="@+id/sportLocation_Button"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+
+
+                app:icon="@drawable/ic_location"
+                app:iconTint="@color/black"
+                app:iconGravity="textTop"
+                app:iconSize="34dp" />
+
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

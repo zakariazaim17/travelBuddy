@@ -6,10 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.model.*
 import com.example.myapplication.repository.Repository
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Response
-import java.io.File
 
 class MainViewModel(private val repository:Repository): ViewModel() {
 
@@ -29,6 +26,7 @@ class MainViewModel(private val repository:Repository): ViewModel() {
     //Comments
     val getPostcommentResponse:MutableLiveData<Response<List<GetCommentsResponse>>> = MutableLiveData()
     val createCommentResponse:MutableLiveData<Response<CreateCommentResponse>> = MutableLiveData()
+    val getCurrentUserPlansResponse:MutableLiveData<Response<List<GetAllPlansResponse>>> = MutableLiveData()
 
 
 //ViewModelsFunctions
@@ -88,6 +86,13 @@ class MainViewModel(private val repository:Repository): ViewModel() {
         viewModelScope.launch {
             val response:Response<CreateCommentResponse> = repository.createComment(token, comment)
             createCommentResponse.value = response
+        }
+    }
+
+    fun getCurrentUserPlans(token: String, category:String, subCategory:String?){
+        viewModelScope.launch {
+            val response:Response<List<GetAllPlansResponse>> = repository.getFilteredPlans(token, category, subCategory)
+            getCurrentUserPlansResponse.value = response
         }
     }
 }

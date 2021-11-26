@@ -77,17 +77,24 @@
                     <TextView
                         android:id="@+id/postLikesSum_TextView"
                         android:layout_width="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_height="match_parent"
-                         />
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/blueSky"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/postCommentsSum_TextView"
-                        android:layout_width="wrap_content"
-android:layout_marginLeft="7dp"
 
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        />
+                        android:layout_marginLeft="7dp"
+
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textColor="@color/blueSky"
+                        android:textSize="16sp" />
 
                     <Space
                         android:layout_width="0dp"
@@ -147,14 +154,12 @@ android:layout_marginLeft="7dp"
             </LinearLayout>
 
 
-
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/comments_RecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="265dp"
+            android:layout_height="236dp"
             android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />

@@ -175,7 +175,7 @@
             app:layout_constraintVertical_bias="0.4"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading"
+            app:lottie_rawRes="@raw/loadingbloob"
             app:lottie_speed="1"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
