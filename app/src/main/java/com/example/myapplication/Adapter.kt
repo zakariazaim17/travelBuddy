@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.RoundedCorner
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
@@ -26,16 +27,23 @@ import kotlin.coroutines.coroutineContext
 
 
 class Adapter(postData: List<GetAllPostResponse>, context:Context, viewModel: MainViewModel):RecyclerView.Adapter<Adapter.ViewHolder>() {
-    val posts:List<GetAllPostResponse> = postData
-    var viewModel:MainViewModel = viewModel
-val context:Context = context
-    val sharedPreferences: SharedPreferences = context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-    val userToken = sharedPreferences.getString("User_token",null);
+    val posts: List<GetAllPostResponse> = postData
+    var viewModel: MainViewModel = viewModel
+    val context: Context = context
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+    val userToken = sharedPreferences.getString("User_token", null)
 
-    class ViewHolder(val binding: CustomPostRowBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: CustomPostRowBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(CustomPostRowBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            CustomPostRowBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -44,7 +52,7 @@ val context:Context = context
         val post = posts[position]
         holder.binding.descriptionTextView.text = post.description
 
-        holder.binding.posterImageImageView.load(post.profileImageUrl){
+        holder.binding.posterImageImageView.load(post.profileImageUrl) {
             crossfade(true)
             crossfade(90)
             transformations(CircleCropTransformation())
@@ -57,40 +65,52 @@ val context:Context = context
         holder.binding.sendCommentButton.setOnClickListener {
 
 
-             viewModel.createPostcomment("Bearer ${userToken.toString()}", CreateComment(holder.binding.commentEditText.text.toString(), post.id))
-Toast.makeText(context, "Comment Posted", Toast.LENGTH_LONG).show()
+            viewModel.createPostcomment(
+                "Bearer ${userToken.toString()}",
+                CreateComment(holder.binding.commentEditText.text.toString(), post.id)
+            )
+            Toast.makeText(context, "Comment Posted", Toast.LENGTH_LONG).show()
 
             holder.binding.commentEditText.text.clear()
 
 
+        }
+        holder.binding.commentEditText.onFocusChangeListener =
+            OnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    FeedScreen().hideKeyboard(v, context)
 
-        }
-        Log.d("textin", holder.binding.descriptionTextView.length().toString())
-        holder.binding.postImageImageView.load(post.imageUrl){
-            crossfade(true)
-            crossfade(100)
-        }
-        holder.binding.postImageImageView.setOnLongClickListener{
-            FeedScreen().showExpandableImage(post.imageUrl)
-            Log.d("fdvdf", "yesyesyesyes")
-          true
-        }
-        holder.binding.postImageImageView.setOnClickListener {
-            (holder.itemView.context as MainActivity).replaceCurrentFragment(SinglePostScreen(post))
-        }
-        holder.binding.commentButton.setOnClickListener {
-            holder.binding.commentLayout.visibility = View.VISIBLE
-            holder.binding.parentContainer.addView(holder.binding.seeAllCommentsTextView)
-            //holder.binding.seeAllCommentsTextView.visibility = View.VISIBLE
-        }
-        holder.binding.seeAllCommentsTextView.setOnClickListener {
-            (holder.itemView.context as MainActivity).replaceCurrentFragment(SinglePostScreen(post))
+                }
+            }
+                holder.binding.postImageImageView.load(post.imageUrl) {
+                    crossfade(true)
+                    crossfade(100)
+                }
+                holder.binding.postImageImageView.setOnLongClickListener {
+                    FeedScreen().showExpandableImage(post.imageUrl)
+                    Log.d("fdvdf", "yesyesyesyes")
+                    true
+                }
+                holder.binding.postImageImageView.setOnClickListener {
+                    (holder.itemView.context as MainActivity).replaceCurrentFragment(
+                        SinglePostScreen(post)
+                    )
+                }
+                holder.binding.commentButton.setOnClickListener {
+                    holder.binding.commentLayout.visibility = View.VISIBLE
+                    holder.binding.parentContainer.addView(holder.binding.seeAllCommentsTextView)
+                    //holder.binding.seeAllCommentsTextView.visibility = View.VISIBLE
+                }
+                holder.binding.seeAllCommentsTextView.setOnClickListener {
+                    (holder.itemView.context as MainActivity).replaceCurrentFragment(
+                        SinglePostScreen(post)
+                    )
+                }
+
+            }
+
+        override fun getItemCount(): Int {
+            return posts.size
         }
 
     }
-
-    override fun getItemCount(): Int {
-      return posts.size
-    }
-
-}

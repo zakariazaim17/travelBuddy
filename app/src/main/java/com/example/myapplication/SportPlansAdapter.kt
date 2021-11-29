@@ -6,6 +6,8 @@ import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.myapplication.databinding.CustomizedEventPlanBinding
 import com.example.myapplication.databinding.CustomizedSportPlanBinding
 import com.example.myapplication.model.GetAllPlansResponse
@@ -38,11 +40,11 @@ class SportPlansAdapter(plans: List<GetAllPlansResponse>): RecyclerView.Adapter<
         val singlePlan = plans[position]
         holder.binding.plannerUserNameTextview.text =singlePlan.username
 
-        /*holder.binding.plannerImageView.load(singlePlan.profileImageUrl){
+        holder.binding.plannerProfileImageImageView.load(singlePlan.profilePictureUrl){
             crossfade(true)
             crossfade(100)
             transformations(CircleCropTransformation())
-        }*/
+        }
         val location = singlePlan.to.split(",")
         val latitude:Double = location[0].toDouble()
         val longitude:Double = location[1].toDouble()

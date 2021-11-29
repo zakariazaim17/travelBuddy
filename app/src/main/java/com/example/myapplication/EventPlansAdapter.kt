@@ -54,7 +54,7 @@ class EventPlansAdapter(plans: List<GetAllPlansResponse>): RecyclerView.Adapter<
         }
 
 
-        holder.binding.tripTimeTextView.text = singlePlan.to
+        holder.binding.tripTimeTextView.text = singlePlan.time
         holder.binding.eventTitleTextView.text = singlePlan.title
         holder.binding.eventPlaceTextView.text = convertLatLongToAddress(latLongLocation)
 

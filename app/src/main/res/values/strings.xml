@@ -3,4 +3,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="travel_buddy">Travel Buddy</string>
+    <string name="address_location">Address Location</string>
+    <string name="select_location_on_the_map">Select location on the map</string>
 </resources>

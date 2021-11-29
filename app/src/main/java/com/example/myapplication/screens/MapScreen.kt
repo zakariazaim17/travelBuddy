@@ -150,7 +150,7 @@ geocode = Geocoder(requireContext())
     }
 
     private fun filterPlans(category:String){
-
+        binding.plansRecyclerView.visibility = View.GONE
         viewModel.getCurrentUserPlans(token = "Bearer ${userToken.toString()}", category = category, null)
         viewModel.getCurrentUserPlansResponse.observe(viewLifecycleOwner, {response->
             if (response.isSuccessful){
@@ -204,7 +204,7 @@ geocode = Geocoder(requireContext())
             .tilt(30f)            // Sets the tilt of the camera to 30 degrees
             .build()
         mMap.uiSettings.isCompassEnabled = false
-        mMap.addMarker(MarkerOptions().position(helsinki))
+        //mMap.addMarker(MarkerOptions().position(helsinki))
 
 
 
@@ -233,6 +233,7 @@ geocode = Geocoder(requireContext())
            }else{
 
                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(helsinki, 13F))
+
            }
 
 

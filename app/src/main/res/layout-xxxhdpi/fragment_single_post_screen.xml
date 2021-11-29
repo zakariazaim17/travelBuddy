@@ -12,21 +12,28 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="@color/black"
+
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:orientation="horizontal"
                 android:backgroundTint="@color/black"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                app:layout_constraintTop_toTopOf="parent">
 
                 <Button
                     android:id="@+id/back_Button"
@@ -48,8 +55,8 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins"
                     android:gravity="center"
-                    android:textColor="@color/black"
                     android:text="See Similar Posts"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
@@ -65,14 +72,14 @@
                 <ImageView
                     android:id="@+id/singlePostImage_ImageView"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp"
+                    android:layout_height="271dp"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:backgroundTint="@color/black">
+                    android:backgroundTint="@color/black"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/postLikesSum_TextView"
@@ -106,15 +113,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:backgroundTint="@color/black">
+                    android:backgroundTint="@color/black"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:paddingHorizontal="10dp"
                         android:id="@+id/postDescription_TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins"
+                        android:paddingHorizontal="10dp"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -123,9 +130,8 @@
                     android:id="@+id/commentLayout"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:orientation="horizontal"
                     android:backgroundTint="@color/black"
-                    >
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/userProfileImage_ImageView"
@@ -154,19 +160,15 @@
             </LinearLayout>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comments_RecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-            app:layout_constraintVertical_bias="0.0" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comments_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
 
+                />
 
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

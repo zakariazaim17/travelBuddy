@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:layout_height="match_parent"
 
-                app:icon="@drawable/ic_bus2"
+
                 app:iconSize="55dp"
                 app:iconGravity="textTop"
                 app:iconTint="@color/black" />

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.AddPostScreen">
+
+    <!-- TODO: Update blank fragment layout -->
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="vertical"
+    android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/TextView_header"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            android:fontFamily="@font/poppins_semibold"
+
+            android:gravity="center"
+            android:lineSpacingExtra="4sp"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:text="Upload Post"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_Floating_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="top|right"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="25dp"
+        android:contentDescription="Add"
+        android:src="@drawable/ic_wallpaper"
+        app:backgroundTint="@color/black"
+        app:tint="#eeeee4"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_emptyimageplaceholder2_foreground" />
+    </RelativeLayout>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <EditText
+            android:id="@+id/editText_PostDescription"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/rounded_all_corners"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="Describe your post content"
+            android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
+            android:maxWidth="380dp"
+            android:maxLines="8"
+
+            android:minLines="3"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/button_uploadPost"
+            android:layout_width="125dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/editText_PostDescription"
+            android:layout_centerHorizontal="true"
+
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:backgroundTint="@color/black"
+            android:text="Upload" />
+
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/uploadPostAnimation"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:adjustViewBounds="true"
+        android:background="@color/overlay"
+        app:layout_constraintVertical_bias="0.4"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/upload"
+        app:lottie_speed="1"
+        tools:ignore="ContentDescription" />
+
+</FrameLayout>

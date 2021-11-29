@@ -22,4 +22,5 @@ data class GetAllPostResponse(
     val likeCount:Int = 0,
     val commentCount:Int = 0,
     val id:String,
+    val isImage:Boolean,
 )

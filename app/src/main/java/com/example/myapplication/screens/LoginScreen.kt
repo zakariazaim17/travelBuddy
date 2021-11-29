@@ -79,9 +79,8 @@ val user = LoginUser(binding.editTextEmail?.text.toString(), binding.editTextPas
                         Toast.makeText(context, response.body()?.message, Toast.LENGTH_LONG).show()
                     }else{
                         //save token for later use
-                            editor.apply {
-                                putString("User_token", response.body()?.data?.token.toString())
-                            }.apply()
+                            editor.putString("User_token", response.body()?.data?.token.toString())
+                            .apply()
                         Toast.makeText(context, "login successfully" , Toast.LENGTH_SHORT).show()
                         (activity as MainActivity).replaceCurrentFragment((MapScreen()))
                     }

@@ -20,6 +20,16 @@ import com.example.myapplication.model.CreateComment
 import com.example.myapplication.model.GetAllPostResponse
 import com.example.myapplication.repository.Repository
 import okhttp3.internal.concurrent.formatDuration
+import android.app.Activity
+import android.app.Application
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
+
+import androidx.core.content.ContextCompat.getSystemService
+
+
+
 
 
 private lateinit var viewModel: MainViewModel
@@ -80,12 +90,24 @@ class FeedScreen : Fragment() {
             formatDuration(200)
         }
         binding.expandableImageImageView.visibility = View.VISIBLE
-
     }
+
+
 
     public fun closeExpandableImage(){
         binding.expandableImageImageView.visibility = View.GONE
     }
+
+    fun hideKeyboard(view: View, contexti:Context) {
+
+        val inputMethodManager: InputMethodManager? =
+            contexti.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+
+        inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
+
+    }
+
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +130,6 @@ class FeedScreen : Fragment() {
         val layoutManager:LinearLayoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         binding.postsRecyclerView.layoutManager = layoutManager
-
 
 
         val repository = Repository()

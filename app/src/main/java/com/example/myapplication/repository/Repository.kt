@@ -37,6 +37,9 @@ class Repository {
     suspend fun getFilteredPlans(token: String, category:String, subCategory:String?):Response<List<GetAllPlansResponse>>{
         return RetrofitInstance.api.getFilteredPlans(token= token, category= category, subCategory=subCategory)
     }
+    suspend fun createPlans(token:String, plan:CreatePlanRequest):Response<CreatePlanResponse>{
+        return  RetrofitInstance.api.createPlans(token=token, plan= plan)
+    }
 
 
 

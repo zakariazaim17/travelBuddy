@@ -86,6 +86,7 @@ class SinglePostScreen(post: GetAllPostResponse? = null) : Fragment() {
 
                             binding.commentsRecyclerView.visibility = View.VISIBLE
                             Log.d("GetComments", response.body().toString() )
+                            Log.d("GetComments", response.body()!!.size.toString())
 
 
                             binding.commentsRecyclerView.adapter = CommentsAdapter(listOfComments!!)

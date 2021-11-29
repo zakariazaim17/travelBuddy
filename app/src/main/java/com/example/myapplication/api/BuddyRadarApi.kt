@@ -42,7 +42,7 @@ interface BuddyRadarApi {
         @Body post:CreatePost
     ):Response<CreatePostResponse>
 
-    @GET("posts/all")
+    @GET("post/all")
     suspend fun getAllPosts(
         @Header("Authorization") token:String,
     ):Response<List<GetAllPostResponse>>
@@ -69,4 +69,11 @@ interface BuddyRadarApi {
         @Query("subCategory") subCategory:String?,
         @Header("Authorization") token: String?,
     ):Response<List<GetAllPlansResponse>>
+
+    @POST("plan/create")
+    suspend fun createPlans(
+        @Header("Authorization") token: String?,
+        @Body plan:CreatePlanRequest,
+    ):Response<CreatePlanResponse>
+
 }

@@ -41,7 +41,8 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_semibold"
                     android:gravity="center"
-                    android:textSize="16sp" />
+                    android:paddingLeft="7dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <ImageView
@@ -144,6 +145,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
                     android:hint="Add a comment ... " />
 
                 <Button
