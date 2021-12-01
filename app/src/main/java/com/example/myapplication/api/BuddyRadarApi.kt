@@ -76,4 +76,19 @@ interface BuddyRadarApi {
         @Body plan:CreatePlanRequest,
     ):Response<CreatePlanResponse>
 
+
+    //Profile
+
+    @GET("user/profile")
+    suspend fun getUserProfile(
+        @Header("Authorization") token: String?,
+        @Query("userId") userId:String,
+    ):Response<GetUserProfileResponse>
+
+    @GET("user/posts")
+    suspend fun getOwnUserPosts(
+        @Header("Authorization") token: String?,
+
+        ):Response<List<GetAllPostResponse>>
+
 }

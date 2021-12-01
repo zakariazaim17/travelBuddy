@@ -15,7 +15,7 @@ import com.example.myapplication.screens.*
 class MainActivity : AppCompatActivity() {
     val mapFragment = MapScreen()
     val feedFragment = FeedScreen()
-    val chatFragment = ChatScreen()
+    //val chatFragment = ChatScreen()
     val profileFragment = ProfileScreen()
     val splashFragment = SplashScreen()
     val loginFragment = LoginScreen()
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.ic_map -> replaceCurrentFragment(mapFragment)
                 R.id.ic_feed -> replaceCurrentFragment(feedFragment)
-                R.id.ic_chat -> replaceCurrentFragment(chatFragment)
+
                 R.id.ic_profile -> replaceCurrentFragment(profileFragment)
             }
             true

@@ -56,6 +56,7 @@ private val binding get() = _binding!!
 private var geocode: Geocoder ?= null
 private  lateinit var mMap :GoogleMap
 private var userToken:String?= null
+
 class MapScreen : Fragment(), OnMapReadyCallback {
 
     private val markObj = object:GoogleMap.OnMarkerDragListener {

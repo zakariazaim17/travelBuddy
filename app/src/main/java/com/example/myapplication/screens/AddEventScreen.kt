@@ -1,5 +1,6 @@
 package com.example.myapplication.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -14,10 +15,13 @@ import com.example.myapplication.databinding.FragmentAddEventScreenBinding
 import com.example.myapplication.utils.Constants
 import android.location.Address
 import android.location.Geocoder
+import android.text.Editable
 
 import android.widget.RadioGroup
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.MainActivity
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.MainViewModelFactory
 import com.example.myapplication.model.CreatePlanRequest
@@ -48,7 +52,8 @@ private var planTime:String ?= null
 private var selectedLocationType :String ?= null
 private var selectedLocation :String ?= null
 private var userToken:String?= null
-
+private val geocoder:Geocoder ?= null
+private var tempMapLocation : LatLng ?= null
 class AddEventScreen : Fragment(), OnMapReadyCallback {
 
     private lateinit var viewModel: MainViewModel
@@ -63,6 +68,10 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
         override fun onMarkerDragEnd(p0: Marker) {
             Log.d("ggg", p0.position.toString())
             selectedLocation = "${p0.position.latitude},${p0.position.longitude}"
+            tempMapLocation = LatLng(p0.position.latitude,p0.position.longitude)
+            binding.addressLocationEditText.visibility = View.VISIBLE
+
+            binding.addressLocationEditText.isEnabled = false
         }
 
         override fun onMarkerDragStart(p0: Marker) {
@@ -96,6 +105,7 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -106,10 +116,18 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
+        binding.addressLocationEditText.visibility = View.GONE
+        binding.addressLocationFromEditText?.visibility = View.GONE
+
+        binding.resultPlanDateTextView.visibility = View.GONE
+        binding.resultPlanTimeTextView.visibility = View.GONE
+
 
         binding.tripRadioButton.text = Constants.TRIP
         binding.eventRadioButton.text = Constants.EVENT
         binding.sportRadioButton.text = Constants.SPORT
+
+
         binding.subCategoryPicker.visibility = View.GONE
 
         binding.parentMapContainer.visibility = View.GONE
@@ -140,148 +158,260 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
         //binding.datePicker.visibility = View.VISIBLE
         }
 
+
+        // ----------> after selecting date
+
         datePicker.addOnPositiveButtonClickListener {
 var pickedDate = convertTimeLongToTime(datePicker.selection!!)
             Log.d("whatDate", pickedDate)
 
             planDate = pickedDate
+            binding.resultPlanDateTextView.visibility = View.VISIBLE
+            binding.resultPlanDateTextView.text = planDate
 
         }
 
+        // ---------------> show timePicker
         binding.setPlanTimeTextView.setOnClickListener {
 
             fragmentManager?.let { it -> timePicker.show(it,"selectPlanDate")}
         }
 
+        // ----------> after selecting time
         timePicker.addOnPositiveButtonClickListener {
 
             Log.d("whatTime", "${timePicker.hour}:${timePicker.minute}")
             planTime = "${timePicker.hour}:${timePicker.minute}"
 
+            binding.resultPlanTimeTextView.visibility = View.VISIBLE
+            binding.resultPlanTimeTextView.text = planTime
 
         }
 
+        // --------------> canceling in map
         binding.cancelLocationButton.setOnClickListener {
             binding.parentMapContainer.visibility = View.GONE
             selectedLocation = null
         }
+
+        // ---------> confirming map
         binding.confirmPlanLocationButton.setOnClickListener {
+
             binding.parentMapContainer.visibility = View.GONE
+           // binding.addressLocationEditText.setText(convertLatLongToAddress(tempMapLocation!!))
+        binding.addressLocationEditText.setText("Location Set ✔️")
         }
 
 
+        // -------------------> plan Location Radio
 binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener{ group, checkedId ->
 
     val locationRadiogroup = group.findViewById(checkedId) as RadioButton
     selectedLocationType = locationRadiogroup.text.toString()
+    Log.d("selectedLocationType", selectedLocationType.toString())
 
     when(selectedLocationType){
-        "Address Location" -> binding.addressLocationEditText.visibility = View.VISIBLE
+        "Address Location" -> {
+            binding.addressLocationEditText.isEnabled = true
+            if (planCategory !== null && planCategory == Constants.TRIP) {
+            binding.addressLocationEditText.visibility = View.VISIBLE
+               // binding.addressLocationFromEditText?.visibility = View.VISIBLE
+        }else if(planCategory == null){
+            Toast.makeText(requireContext(), "Please select your Event Category beforehand", Toast.LENGTH_LONG).show()
+        }else{
+                binding.addressLocationEditText.visibility = View.VISIBLE
+        }}
             else ->{
-                binding.parentMapContainer.visibility = View.VISIBLE
+                if (planCategory == null){
+                    Toast.makeText(requireContext(), "Please select your Event Category beforehand", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    //binding.addressLocationFromEditText?.visibility = View.VISIBLE
+                    binding.parentMapContainer.visibility = View.VISIBLE
+                    binding.addressLocationEditText.visibility = View.VISIBLE
+
+
+                }
+
             }
     }
 
 })
-
+        // ------> Plan Type radio
 
         binding.radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
 
 
-
+            //binding.subCategoryPicker.visibility = View.GONE
             var radioButton = group.findViewById(checkedId) as RadioButton
-            binding.subCategoryPicker.visibility = View.GONE
 
-            binding.subCategoryPicker.minValue = 0
+
+
             planCategory = radioButton.text.toString()
+            binding.subCategoryPicker.visibility = View.VISIBLE
 
-            /*when(radioButton.text.toString()){
+
+            when(planCategory){
                 Constants.TRIP ->{
-                    binding.subCategoryPicker.visibility = View.GONE
+                    binding.subCategoryPicker.clearFocus()
+                    //binding.subCategoryPicker.minValue = 0
+                    binding.subCategoryPicker.displayedValues = null
                     binding.subCategoryPicker.minValue = 0
                     binding.subCategoryPicker.maxValue = subTripData.size -1
                     binding.subCategoryPicker.displayedValues = subTripData
+
+
                     binding.subCategoryPicker.visibility = View.VISIBLE}
                 Constants.EVENT ->{
+                    binding.subCategoryPicker.clearFocus()
                     binding.subCategoryPicker.visibility = View.GONE
-                    binding.subCategoryPicker.minValue = 0
+                    //binding.subCategoryPicker.minValue = 1
+                    binding.subCategoryPicker.displayedValues = null
+                    binding.subCategoryPicker.minValue = 1
                     binding.subCategoryPicker.maxValue = subEventData.size -1
                     binding.subCategoryPicker.displayedValues = subEventData
+
+
                     binding.subCategoryPicker.visibility = View.VISIBLE}
                 Constants.SPORT ->{
+                    binding.subCategoryPicker.clearFocus()
                     binding.subCategoryPicker.visibility = View.GONE
-                    binding.subCategoryPicker.minValue = 0
-                    binding.subCategoryPicker.maxValue = subSportData.size -1
+                    // binding.subCategoryPicker.minValue = 1
+                    binding.subCategoryPicker.displayedValues = null
+                    binding.subCategoryPicker.maxValue = subSportData.size
+                    binding.subCategoryPicker.minValue = 1
                     binding.subCategoryPicker.displayedValues = subSportData
+
                     binding.subCategoryPicker.visibility = View.VISIBLE}
-            }*/
+            }
+
+
             Log.d("whaatRadi", radioButton.text.toString())
         })
+
+
+        // ------> subCategory picker
+
         binding.subCategoryTextView.setOnClickListener {
 
 
             when(planCategory){
                 Constants.TRIP ->{
                     binding.subCategoryPicker.clearFocus()
-
+                    //binding.subCategoryPicker.minValue = 0
+                    binding.subCategoryPicker.displayedValues = null
                     binding.subCategoryPicker.minValue = 0
                     binding.subCategoryPicker.maxValue = subTripData.size -1
                     binding.subCategoryPicker.displayedValues = subTripData
+
+
                     binding.subCategoryPicker.visibility = View.VISIBLE}
                 Constants.EVENT ->{
                     binding.subCategoryPicker.clearFocus()
                     binding.subCategoryPicker.visibility = View.GONE
-                    binding.subCategoryPicker.minValue = 1
+                    //binding.subCategoryPicker.minValue = 1
+                    binding.subCategoryPicker.displayedValues = null
+                    binding.subCategoryPicker.minValue = 0
                     binding.subCategoryPicker.maxValue = subEventData.size -1
                     binding.subCategoryPicker.displayedValues = subEventData
+
+
                     binding.subCategoryPicker.visibility = View.VISIBLE}
-                Constants.SPORT ->{
+
+                Constants.SPORT -> {
                     binding.subCategoryPicker.clearFocus()
                     binding.subCategoryPicker.visibility = View.GONE
-                    binding.subCategoryPicker.minValue = 1
+                   // binding.subCategoryPicker.minValue = 1
+                    binding.subCategoryPicker.displayedValues = null
+
+                    binding.subCategoryPicker.minValue = 0
                     binding.subCategoryPicker.maxValue = subSportData.size -1
                     binding.subCategoryPicker.displayedValues = subSportData
-                    binding.subCategoryPicker.visibility = View.VISIBLE}
-            }
 
-
-        }
-
-        binding.buttonUploadPost.setOnClickListener {
-
-         inspectCheckedPlanType()
-            if(selectedLocation == "Address Location") {
-                geocodeAddressLocation(binding.addressLocationEditText.text.toString())
-            }
-            Log.d("whaaaatcat", planCategory.toString())
-            Log.d("whaaaatcat", subCategory.toString())
-            Log.d("whaaaatcat", planDate.toString())
-            Log.d("whaaaatcat", planTime.toString())
-            Log.d("whaaaatcat", selectedLocation.toString())
-            Log.d("whaaaatcat", binding.editTextPostDescription.text.toString())
-
-            viewModel.createPlans(token ="Bearer ${userToken.toString()}", CreatePlanRequest(title = binding.editTextPostDescription.text.toString(),
-                from = "null",
-                date =  planDate.toString(),
-                time = planTime.toString(),
-                to = selectedLocation.toString(),
-                category = planCategory.toString(),
-                subCategory = subCategory.toString()))
-
-            viewModel.createPlanResponse.observe(viewLifecycleOwner, {response ->
-                if (response.isSuccessful){
-                    if (response.body()!!.success){
-                        Log.d("Sending Plan", response.body()!!.success.toString())
-                    }else{
-                        Log.d("Sending Plan", response.body()!!.success.toString())
-                    }
-                }else{
-                    Log.d("Something went Wrong", response.errorBody().toString())
+                    binding.subCategoryPicker.visibility = View.VISIBLE
                 }
-            })
+            }
 
 
         }
+
+
+        // ----------------> Upload Btn
+        binding.buttonUploadPost.setOnClickListener {
+            binding.uploadPostAnimation.visibility = View.VISIBLE
+
+            Log.d("whatselectedLocPlan", selectedLocationType.toString())
+         if(inspectCheckedPlanType()){
+             Log.d("hmsm", inspectCheckedPlanType().toString())
+            /* if(selectedLocationType == "Address Location") {
+                 geocodeAddressLocation(binding.addressLocationEditText.text.toString())
+             }*/
+
+             Log.d("whaaaatcat", planCategory.toString())
+             Log.d("whaaaatcat", subCategory.toString())
+             Log.d("whaaaatcat", planDate.toString())
+             Log.d("whaaaatcat", planTime.toString())
+             Log.d("whaaaatcat", selectedLocation.toString())
+             Log.d("whaaaatcat", binding.editTextPostDescription.text.toString())
+
+             viewModel.createPlans(token ="Bearer ${userToken.toString()}", CreatePlanRequest(title = binding.editTextPostDescription.text.toString(),
+                 from = "null",
+                 date =  planDate.toString(),
+                 time = planTime.toString(),
+                 to = selectedLocation.toString(),
+                 category = planCategory.toString(),
+                 subCategory = subCategory.toString()))
+
+             viewModel.createPlanResponse.observe(viewLifecycleOwner, {response ->
+
+                 if (response.isSuccessful){
+                     if (response.body()!!.success){
+                         Log.d("Sending Plan", response.body()!!.success.toString())
+                         Toast.makeText(requireContext(), "Event Uploaded successfully", Toast.LENGTH_LONG).show()
+                         (activity as MainActivity).replaceCurrentFragment(FeedScreen())
+                     }else{
+                         Log.d("Sending Plan", response.body()!!.success.toString())
+                         Toast.makeText(requireContext(), "error while Uploading, try later", Toast.LENGTH_LONG).show()
+                     }
+                     binding.uploadPostAnimation.visibility = View.GONE
+
+                     (activity as MainActivity).replaceCurrentFragment(MapScreen())
+                 }else{
+                     Log.d("Something went Wrong", response.errorBody().toString())
+                     binding.uploadPostAnimation.visibility = View.GONE
+                 }
+
+             })
+         }else {
+             if (selectedLocation == null) {
+                 Toast.makeText(
+                     requireContext(),
+                     "❌ Please give a proper address",
+                     Toast.LENGTH_LONG
+                 ).show()
+
+                 binding.uploadPostAnimation.visibility = View.GONE
+
+             } else {
+
+
+                 Toast.makeText(requireContext(), "❌ Please fill-in all fields", Toast.LENGTH_LONG)
+                     .show()
+                 binding.uploadPostAnimation.visibility = View.GONE
+             }
+         }
+
+
+
+        }
+    }
+
+    private fun convertLatLongToAddress(location:LatLng): String? {
+
+        val city:List<Address>? =
+            geocoder?.getFromLocation(location.latitude, location.longitude,1) as? List<Address>
+        city?.get(0)?.getAddressLine(0)?.let { Log.d("what is more info", it) }
+        return city?.get(0)?.locality
     }
 
     override fun onDestroyView() {
@@ -323,12 +453,17 @@ binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedCh
 
     }
 
-    private fun inspectCheckedPlanType(){
+    // ---------------------> inspect before uploading where i am setting te correct subcategory
+
+    private fun inspectCheckedPlanType():Boolean{
 
         val value: String = java.lang.String.valueOf(binding.subCategoryPicker.getValue())
+        if(selectedLocationType == "Address Location") {
+            geocodeAddressLocation(binding.addressLocationEditText.text.toString())
+        }
         when(planCategory){
             Constants.SPORT-> {
-            subCategory = subSportData[value.toInt()].toString()
+            subCategory = subSportData[value.toInt() -1].toString()
                 Log.d("whatchoosed", subSportData[value.toInt()].toString())
             }
                 Constants.TRIP-> {
@@ -337,11 +472,12 @@ binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedCh
                     Log.d("whatchoosed", subTripData[value.toInt()].toString())
                 }
                     Constants.EVENT-> {
-                        subCategory = subEventData[value.toInt()].toString()
+                        subCategory = subEventData[value.toInt() -1].toString()
 
                         Log.d("whatchoosed", subEventData[value.toInt()].toString())
                     }
         }
+        return (subCategory != null && planCategory != null && planDate != null && planTime != null && binding.editTextPostDescription.text.isNotEmpty() && selectedLocation != null && selectedLocationType != null )
 
     }
 
@@ -349,10 +485,18 @@ binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedCh
 
         val listOfAddress:List<Address> =
             geocode?.getFromLocationName(address,1) as List<Address>
-        val finalAddressLocation: Address = listOfAddress.get(0)
+        if (listOfAddress.isNotEmpty()){
+            val finalAddressLocation: Address = listOfAddress?.get(0)
+            Log.d("leseoutcomeofLocation", finalAddressLocation.toString())
 
-        Log.d("whatAddress", "${finalAddressLocation.longitude} && ${finalAddressLocation.latitude}")
-        selectedLocation = "${finalAddressLocation.latitude},${finalAddressLocation.longitude}"
+            Log.d("whatAddress", "${finalAddressLocation.longitude} && ${finalAddressLocation.latitude}")
+            Log.d("selectedLoc", selectedLocation.toString())
+            selectedLocation= "${finalAddressLocation.latitude},${finalAddressLocation.longitude}"
+        }else{
+            selectedLocation = null
+        }
+
+
     }
 
     private fun convertTimeLongToTime(time:Long):String{

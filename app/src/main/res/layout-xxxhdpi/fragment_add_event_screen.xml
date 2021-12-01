@@ -37,7 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="12dp"
+
                         android:fontFamily="@font/poppins_semibold"
 
                         android:gravity="center"
@@ -51,16 +51,21 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:layout_marginHorizontal="20dp"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Select Plan Category"/>
                     <LinearLayout
+                        android:layout_marginHorizontal="20dp"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="center"
                         >
                         <RadioGroup
+                            android:layout_centerHorizontal="true"
                             android:id="@+id/radioGroup"
                             android:checkedButton="@+id/radio_button_1"
                             android:layout_width="match_parent"
@@ -91,6 +96,7 @@
                         </RadioGroup>
                     </LinearLayout>
                     <TextView
+                        android:layout_marginHorizontal="20dp"
                         android:layout_marginVertical="10dp"
                         android:id="@+id/subCategory_TextView"
                         android:layout_width="match_parent"
@@ -98,18 +104,31 @@
                         android:text="Select subcategory"/>
 
                     <NumberPicker
+                        android:layout_marginHorizontal="20dp"
+
                         android:id="@+id/subCategoryPicker"
                         android:layout_width="match_parent"
                         android:layout_height="80dp" />
+                    <TextView
+                        android:layout_marginHorizontal="20dp"
+
+                        android:layout_marginTop="9dp"
+                        android:text="Set your event date and time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                     <LinearLayout
+                        android:layout_marginHorizontal="20dp"
+
                         android:layout_marginVertical="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="40dp">
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:weightSum="2">
+
 
                             <Button
                                 android:id="@+id/setPlanDate_TextView"
@@ -117,7 +136,7 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="match_parent"
-                                app:icon="@drawable/ic_location"
+                                app:icon="@drawable/icd_date_range"
                                 app:iconGravity="textTop"
                                 app:iconSize="26dp"
                                 app:iconTint="@color/black" />
@@ -142,7 +161,7 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="match_parent"
-                                app:icon="@drawable/ic_location"
+                                app:icon="@drawable/ic_time"
                                 app:iconGravity="textTop"
                                 app:iconSize="26dp"
                                 app:iconTint="@color/black" />
@@ -158,6 +177,7 @@
 
                     </LinearLayout>
                     <TextView
+                        android:layout_marginHorizontal="20dp"
 
                         android:layout_marginTop="10dp"
                         android:id="@+id/setLocation_TextView"
@@ -165,6 +185,8 @@
                         android:layout_height="wrap_content"
                         android:text="Set plan location"/>
                     <LinearLayout
+                        android:layout_marginHorizontal="20dp"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -193,18 +215,17 @@
                         </RadioGroup>
 
                     </LinearLayout>
+
                     <EditText
-                        android:hint="enter your address .."
-                        android:layout_marginBottom="5dp"
-                        android:id="@+id/addressLocationFrom_EditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <EditText
+                        android:layout_marginHorizontal="20dp"
+
                         android:hint="enter your address .."
                         android:id="@+id/addressLocation_EditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
+                        android:layout_marginHorizontal="20dp"
+
                         android:id="@+id/mapLocationResult_TextView"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"/>
@@ -265,7 +286,9 @@
         </LinearLayout>
 
 
+
     </ScrollView>
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/uploadPostAnimation"
         android:layout_width="match_parent"
@@ -305,12 +328,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginHorizontal="6dp"
             android:backgroundTint="#e8eaef"
+
             android:text="Confirm"
             android:textColor="@color/black"
-            app:icon="@drawable/ic_trip"
-            app:iconTint="@color/blueSky" />
+            app:icon="@drawable/ic_check"
+            app:iconTint="@color/green"
+            />
 
         <Button
             android:id="@+id/cancelLocation_Button"
@@ -321,17 +347,17 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|left"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginHorizontal="6dp"
+
+            android:layout_marginBottom="5dp"
             android:backgroundTint="#e8eaef"
             android:text="Cancel"
             android:textColor="@color/black"
-            app:icon="@drawable/ic_trip"
-            app:iconTint="@color/blueSky" />
+            app:icon="@drawable/ic_cancel"
+            app:iconTint="@color/orange" />
 
 
 
     </RelativeLayout>
-
 </FrameLayout>
 

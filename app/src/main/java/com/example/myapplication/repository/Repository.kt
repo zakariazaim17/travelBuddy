@@ -40,6 +40,12 @@ class Repository {
     suspend fun createPlans(token:String, plan:CreatePlanRequest):Response<CreatePlanResponse>{
         return  RetrofitInstance.api.createPlans(token=token, plan= plan)
     }
+    suspend fun getUseProfile(token: String, userId:String):Response<GetUserProfileResponse>{
+        return RetrofitInstance.api.getUserProfile(token = token, userId = userId)
+    }
+    suspend fun getOwnUserPosts(token:String):Response<List<GetAllPostResponse>>{
+        return RetrofitInstance.api.getOwnUserPosts(token = token)
+    }
 
 
 
