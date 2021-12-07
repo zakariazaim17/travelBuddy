@@ -50,7 +50,7 @@
 
             <TextView
                 android:id="@+id/tripTime_TextView"
-                android:layout_width="95dp"
+                android:layout_width="140dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="here time" />
@@ -65,19 +65,15 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <TextView
-                android:text="place"
-                android:gravity="center"
-                android:id="@+id/tripPlaceOrigin_TextView"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
+
 
             <Button
                 android:id="@+id/tripMeanOfTransportation"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:paddingLeft="60dp"
+
                 android:layout_height="match_parent"
 
 
@@ -85,28 +81,31 @@
                 app:iconGravity="textTop"
                 app:iconTint="@color/black" />
 
-            <TextView
-                android:text="place"
-                android:gravity="center"
-                android:id="@+id/tripPlaceDestination_TextView"
+            <Button
+                android:id="@+id/sportLocation_Button"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-
-
-
-            <Button
-                android:id="@+id/eventLocation_Button"
-                style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-
+                android:layout_weight="1"
 
                 app:icon="@drawable/ic_path"
                 app:iconTint="@color/black"
                 app:iconGravity="textTop"
-                app:iconSize="34dp" />
+                 />
+
+            <TextView
+                android:id="@+id/tripPlaceDestination_TextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="place" />
+
+
+
+
+
+
 
 
 

@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/filter_button"
+            android:id="@+id/logout_Button"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
             android:layout_width="64dp"
 
@@ -76,7 +76,7 @@
                 android:id="@+id/updateUserInfo_Button"
                 style="@style/Widget.App.Button.OutlinedButton.IconOnly"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="-40dp"
                 app:icon="@drawable/ic_modify"
@@ -185,6 +185,47 @@
                 android:layout_height="match_parent"
                 tools:listitem="@layout/custom_profile_post_row"
                 />
+
+            <RelativeLayout
+                android:id="@+id/parentEmptyPostContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/uploadPostAnimation"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:adjustViewBounds="true"
+
+                app:layout_constraintVertical_bias="0.4"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/empty"
+                app:lottie_speed="1"
+                tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/textEmptyState_textview"
+                    android:layout_width="203dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="50dp"
+                    android:gravity="center"
+                    android:text="Seems that no posts are there, be the first to Post 🔥"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+            </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>

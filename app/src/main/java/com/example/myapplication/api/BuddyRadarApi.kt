@@ -91,4 +91,9 @@ interface BuddyRadarApi {
 
         ):Response<List<GetAllPostResponse>>
 
+    @POST("user/updatee")
+    suspend fun updateUserProfile(
+        @Header("Authorization") token: String?,
+        @Body userUpdate:udpateUserProfile,
+    ):Response<updateUserResponse>
 }

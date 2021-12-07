@@ -46,8 +46,9 @@ class Repository {
     suspend fun getOwnUserPosts(token:String):Response<List<GetAllPostResponse>>{
         return RetrofitInstance.api.getOwnUserPosts(token = token)
     }
-
-
+    suspend fun updateUserProfile(token: String, userUpdate:udpateUserProfile):Response<updateUserResponse>{
+        return RetrofitInstance.api.updateUserProfile(token = token, userUpdate = userUpdate)
+    }
 
 
 

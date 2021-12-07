@@ -75,21 +75,28 @@ val user = LoginUser(binding.editTextEmail?.text.toString(), binding.editTextPas
             viewModel.login(user)
             viewModel.loginResponse.observe(viewLifecycleOwner, {response ->
                 if(response.isSuccessful){
-                    if(!response.body()!!.success){
-                        Toast.makeText(context, response.body()?.message, Toast.LENGTH_LONG).show()
-                    }else{
-                        //save token for later use
-                            editor.putString("User_token", response.body()?.data?.token.toString())
+                    if(response.body()!!.success){
+                        Toast.makeText(context, "login successfully", Toast.LENGTH_SHORT).show()
+
+                        editor.putString("User_token", response.body()?.data?.token.toString())
                             .apply()
                         editor.putString("User_Id", response.body()?.data?.userId.toString()).apply()
+                        editor.putBoolean("isLoggedIn", true).apply()
 
-                        Toast.makeText(context, "login successfully" , Toast.LENGTH_SHORT).show()
                         (activity as MainActivity).replaceCurrentFragment((MapScreen()))
+
+                    }else{
+                        //save token for later use
+
+
+                        Toast.makeText(context, "Couldn't login, Make sure you entered the correct info!" , Toast.LENGTH_LONG).show()
+
                     }
                     Log.d("Main1", response.body()?.data?.token.toString())
                     Log.d("Main1", response.code().toString())
                     Log.d("Main1", response.message())
                 }else{
+                    Toast.makeText(context, "Seems there is a problem, Retry later ⏳",Toast.LENGTH_SHORT).show()
                     Log.d("Main1", response.errorBody().toString())
 
                 }

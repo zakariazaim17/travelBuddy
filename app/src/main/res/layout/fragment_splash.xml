@@ -16,20 +16,16 @@
             android:id="@+id/textView_logo_name"
             android:layout_width="289dp"
             android:layout_height="61dp"
-
-
             android:layout_alignParentBottom="true"
-
-
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="15dp"
-            android:contentDescription="@string/travel_buddy"
+            android:contentDescription="@string/buddy_radar"
             android:fontFamily="monospace"
-            android:text="@string/travel_buddy"
+            android:text="@string/buddy_radar"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="24sp"
-            tools:text="@string/travel_buddy" />
+            />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/img"

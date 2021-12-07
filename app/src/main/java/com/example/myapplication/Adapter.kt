@@ -52,12 +52,14 @@ class Adapter(postData: List<GetAllPostResponse>, context:Context, viewModel: Ma
         val post = posts[position]
         holder.binding.descriptionTextView.text = post.description
 
-        holder.binding.posterImageImageView.load(post.profileImageUrl) {
+        holder.binding.posterImageImageView.load(post.profilePictureUrl) {
             crossfade(true)
             crossfade(90)
             transformations(CircleCropTransformation())
 
         }
+
+
 
 
         holder.binding.posterUserNameTextView.text = post.username
@@ -98,6 +100,7 @@ class Adapter(postData: List<GetAllPostResponse>, context:Context, viewModel: Ma
                 }
                 holder.binding.commentButton.setOnClickListener {
                     holder.binding.commentLayout.visibility = View.VISIBLE
+                    holder.binding.parentContainer.removeView(holder.binding.seeAllCommentsTextView)
                     holder.binding.parentContainer.addView(holder.binding.seeAllCommentsTextView)
                     //holder.binding.seeAllCommentsTextView.visibility = View.VISIBLE
                 }

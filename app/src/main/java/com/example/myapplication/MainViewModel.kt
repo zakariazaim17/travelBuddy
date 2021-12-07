@@ -34,6 +34,7 @@ class MainViewModel(private val repository:Repository): ViewModel() {
     //Profile
     val getUserProfileResponse:MutableLiveData<Response<GetUserProfileResponse>> = MutableLiveData()
     val getOwnUserPostsResponse:MutableLiveData<Response<List<GetAllPostResponse>>> = MutableLiveData()
+    val getUpdateUserProfileResponse:MutableLiveData<Response<updateUserResponse>> = MutableLiveData()
 
 
 //ViewModelsFunctions
@@ -121,6 +122,13 @@ class MainViewModel(private val repository:Repository): ViewModel() {
         viewModelScope.launch {
             val response:Response<List<GetAllPostResponse>> = repository.getOwnUserPosts(token)
             getOwnUserPostsResponse.value = response
+        }
+    }
+
+    fun updateUserProfile(token: String, updateUser:udpateUserProfile){
+        viewModelScope.launch {
+            val response:Response<updateUserResponse> = repository.updateUserProfile(token, updateUser)
+            getUpdateUserProfileResponse.value = response
         }
     }
 }

@@ -121,7 +121,7 @@ class SinglePostScreen(post: GetAllPostResponse? = null) : Fragment() {
 
 
         }
-        binding.postLikesSumTextView.text = "${singlePost?.likeCount} Cheers"
+
         binding.postDescriptionTextView.text = singlePost?.description
         binding.postCommentsSumTextView.text = "${singlePost?.commentCount} Comments"
         binding.backButton.setOnClickListener {

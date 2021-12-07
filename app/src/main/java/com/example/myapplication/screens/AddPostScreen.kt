@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 
 import androidx.fragment.app.Fragment
@@ -37,9 +38,8 @@ import okhttp3.Dispatcher
 import java.io.File
 
 import kotlin.random.Random
-
-
-
+import android.view.View.OnFocusChangeListener
+import androidx.core.content.ContextCompat.getSystemService
 
 
 private var isFabOpen :Boolean = false
@@ -75,6 +75,8 @@ class AddPostScreen : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
+        ImageUri = null
+
         process?.cancel()
         process2?.cancel()
         _binding = null
@@ -101,14 +103,35 @@ class AddPostScreen : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
 
+
+
+
+        binding.editTextPostDescription.setOnFocusChangeListener(OnFocusChangeListener { v, hasFocus ->
+            if (!hasFocus) {
+                hideKeyboard(binding.editTextPostDescription)
+            }
+        })
+
+
+
+
+
         binding?.addFloatingBtn.setOnClickListener {
-            openGalleryForImage()
+            hideKeyboard(binding.editTextPostDescription)
+
+            //openGalleryForImage()
         }
 
 
         binding?.buttonUploadPost.setOnClickListener {
+        if (ImageUri != null && binding.editTextPostDescription.text.trim().isNotEmpty()){
 
             uploadImageToFirebase(ImageUri!!)
+
+        }else{
+            Toast.makeText(requireContext(), "Please fill-in the required fields", Toast.LENGTH_SHORT).show()
+        }
+
 
         }
 
@@ -118,6 +141,26 @@ class AddPostScreen : Fragment() {
    /* fun capturePhoto() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+    }
+    */
+
+    fun hideKeyboard(view: View) {
+
+        val inputMethodManager: InputMethodManager =
+            requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+
+    }
+
+
+
+
+
+/*
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
     */
 

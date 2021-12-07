@@ -51,7 +51,7 @@ class SportPlansAdapter(plans: List<GetAllPlansResponse>): RecyclerView.Adapter<
         val latlongLocation: LatLng = LatLng(latitude, longitude)
         holder.binding.parentPlanLayout.setOnClickListener {
 
-            MapScreen().navigateBetweenPlans(latlongLocation)
+            MapScreen().navigateBetweenPlans(latlongLocation, singlePlan.title)
         }
         holder.binding.tripTimeTextView.text = singlePlan.time
         holder.binding.sportTitleTextView.text = singlePlan.title

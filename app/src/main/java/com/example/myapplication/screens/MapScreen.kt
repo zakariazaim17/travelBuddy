@@ -59,6 +59,8 @@ private var userToken:String?= null
 
 class MapScreen : Fragment(), OnMapReadyCallback {
 
+    private var isFabOpen :Boolean = false
+
     private val markObj = object:GoogleMap.OnMarkerDragListener {
 
 
@@ -90,7 +92,7 @@ geocode = Geocoder(requireContext())
 
 
     private var mapReady = false
-    private var isFabOpen :Boolean = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -128,34 +130,109 @@ geocode = Geocoder(requireContext())
 
         binding.plansRecyclerView.visibility = View.GONE
 
+        binding.searchAnimation?.visibility = View.GONE
+
+
+
+        // manage floating Buttons
+        binding.planCategoryFloatingBtn?.extend()
+
+        binding.eventBtnFloatingButton?.shrink()
+        binding.eventBtnFloatingButton?.visibility = View.GONE
+
+        binding.travelBtnFloatingButton?.shrink()
+        binding.travelBtnFloatingButton?.visibility = View.GONE
+
+        binding.sportBtnFloatingButton?.shrink()
+        binding.sportBtnFloatingButton?.visibility = View.GONE
+
+        binding.addPlanButton?.visibility = View.GONE
+
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-       binding.sportBtn.setOnClickListener {
+        binding.addPlanButton?.setOnClickListener {
+            (activity as MainActivity).replaceCurrentFragment(AddEventScreen())
+        }
+        binding.planCategoryFloatingBtn?.setOnClickListener {
+            controlSubFab()
+        }
+       binding.sportBtnFloatingButton?.setOnClickListener {
+           controlSubFab()
            filterPlans(Constants.SPORT)
-
         }
 
-        binding.travelBtn.setOnClickListener {
+        binding.travelBtnFloatingButton?.setOnClickListener {
+            controlSubFab()
             filterPlans(Constants.TRIP)
-
         }
 
-        binding.eventBtn.setOnClickListener {
+        binding.eventBtnFloatingButton?.setOnClickListener {
+            controlSubFab()
             filterPlans(Constants.EVENT)
-
         }
+
+
 
 
     }
 
+    private fun controlSubFab (){
+        Log.d("floatingBtn", isFabOpen.toString())
+        if(!isFabOpen){
+            binding.planCategoryFloatingBtn?.shrink()
+
+            binding.sportBtnFloatingButton?.extend()
+            binding.sportBtnFloatingButton?.animate()?.translationX(resources.getDimension(R.dimen.standard_105))
+            binding.sportBtnFloatingButton?.show()
+
+            binding.travelBtnFloatingButton?.show()
+            binding.travelBtnFloatingButton?.extend()
+            binding.travelBtnFloatingButton?.animate()?.translationX(resources.getDimension(R.dimen.standard_55))
+            binding.travelBtnFloatingButton?.animate()?.translationY(resources.getDimension(R.dimen.standard_55))
+
+            binding.eventBtnFloatingButton?.show()
+            binding.eventBtnFloatingButton?.extend()
+            binding.eventBtnFloatingButton?.animate()?.translationY(resources.getDimension(R.dimen.standard_105))
+
+
+            isFabOpen = true
+
+        }else{
+
+
+
+            binding.sportBtnFloatingButton?.shrink()
+            binding.sportBtnFloatingButton?.animate()?.translationX(-resources.getDimension(R.dimen.standard_105))
+            binding.sportBtnFloatingButton?.hide()
+
+            binding.travelBtnFloatingButton?.shrink()
+            binding.travelBtnFloatingButton?.animate()?.translationX(-resources.getDimension(R.dimen.standard_105))
+            binding.travelBtnFloatingButton?.animate()?.translationY(-resources.getDimension(R.dimen.standard_105))
+            binding.travelBtnFloatingButton?.hide()
+
+            binding.eventBtnFloatingButton?.shrink()
+            binding.eventBtnFloatingButton?.animate()?.translationY(-resources.getDimension(R.dimen.standard_105))
+            binding.eventBtnFloatingButton?.hide()
+
+            binding.planCategoryFloatingBtn?.extend()
+
+            isFabOpen = false
+
+        }
+    }
+
     private fun filterPlans(category:String){
+        binding.searchAnimation?.visibility = View.VISIBLE
+
         binding.plansRecyclerView.visibility = View.GONE
         viewModel.getCurrentUserPlans(token = "Bearer ${userToken.toString()}", category = category, null)
         viewModel.getCurrentUserPlansResponse.observe(viewLifecycleOwner, {response->
             if (response.isSuccessful){
                 if (response.body()?.size!! > 0){
+                    binding.searchAnimation?.visibility = View.GONE
+
                     binding.plansRecyclerView.visibility = View.VISIBLE
                     when(category){
                          "sport" -> binding.plansRecyclerView.adapter = SportPlansAdapter(response.body()!!)
@@ -165,15 +242,19 @@ geocode = Geocoder(requireContext())
 
                 }else{
                     binding.plansRecyclerView.visibility = View.GONE
+                    Toast.makeText(requireContext(), "No plans Found!", Toast.LENGTH_LONG).show()
                     Log.d("fetchingPlans", "seems user doesn't have plans")
                 }
             }else{
+                Toast.makeText(requireContext(), "Some error occurred, please try later",Toast.LENGTH_SHORT).show()
                 Log.d("fetchingPlans", response.errorBody().toString())
             }
+            binding.addPlanButton?.visibility = View.VISIBLE
+
         })
     }
 
-    public fun navigateBetweenPlans(location:LatLng){
+    public fun navigateBetweenPlans(location:LatLng, title:String){
         val helsinki = LatLng(location.latitude, location.longitude)
         val cameraPosition = CameraPosition.Builder()
             .target(helsinki) // Sets the center of the map to Mountain View
@@ -185,7 +266,11 @@ geocode = Geocoder(requireContext())
         mMap.clear()
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000, null)
        // val icon :BitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_fire)
-        mMap.addMarker(MarkerOptions().position(helsinki))
+        mMap.addMarker(
+            MarkerOptions()
+                .position(helsinki)
+                .title(title))
+
     }
 
     override fun onMapReady(googleMap: GoogleMap)  {

@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.myapplication.MainActivity
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.MainViewModelFactory
 import com.example.myapplication.R
@@ -62,14 +63,22 @@ val repository = Repository()
             viewModel.createUser(newUser)
             viewModel.registerResponse.observe(viewLifecycleOwner, {response ->
                 if(response.isSuccessful){
+                    if(response.body()!!.success){
+
+                        Toast.makeText(context, "Please Log in",Toast.LENGTH_SHORT).show()
+                        (activity as MainActivity).replaceCurrentFragment(LoginScreen())
+                    }
                     Log.d("Main1", response.body().toString())
                     Log.d("Main1", response.code().toString())
                     Log.d("Main1", response.message())
-                    Toast.makeText(context, "Registered successfully",Toast.LENGTH_SHORT).show()
-                    binding.editTextTextEmail?.text?.clear()
+
+
+                    /*Toast.makeText(context, "Registered successfully",Toast.LENGTH_SHORT).show()
+                    binding.editTextTextEmail?.text?.clear()*/
 
 
                 }else{
+                    Toast.makeText(context, "Seems there is a problem, Retry later ⏳",Toast.LENGTH_SHORT).show()
                     Log.d("Main1", response.errorBody().toString())
 
                 }

@@ -24,61 +24,135 @@
             android:weightSum="3"
             >
 
-                <Button
-                    android:id="@+id/travelBtn"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:layout_marginVertical="12dp"
-                    android:layout_weight="1"
-                    android:text="trip"
-                    app:iconTint="@color/blueSky"
-                    android:textColor="@color/black"
-                    android:backgroundTint="#e8eaef"
-                    app:icon="@drawable/ic_trip"
 
-                     />
-
-                <Button
-                    android:id="@+id/eventBtn"
-                    android:layout_width="0dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-
-                    app:iconTint="@color/orange"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:layout_marginVertical="12dp"
-                    android:layout_weight="1"
-                    android:text="event"
-                    android:textColor="@color/black"
-                    app:icon="@drawable/ic_baseline_fire"
-                    android:backgroundTint="#e8eaef"
-
-                    />
-
-                <Button
-                    android:id="@+id/sportBtn"
-                    android:layout_width="0dp"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                        android:backgroundTint="#e8eaef"
-
-                    app:iconTint="@color/green"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:layout_marginVertical="12dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="sport"
-                    app:icon="@drawable/ic_sport"
-                    />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_gravity="bottom"
-            android:id="@+id/plansRecyclerView"
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/planCategory_Floating_Btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="top|left"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/black"
+            android:contentDescription="Add"
+            android:text="Plan categories"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_eventcategories"
+            app:iconTint="@color/white"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/travelBtn_Floating_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="top|left"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Add"
+            app:iconTint="@color/green"
+            android:text="trip"
+            app:icon="@drawable/ic_trip"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/eventBtn_Floating_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="top|left"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Add"
+            app:iconTint="@color/orange"
+            android:text="event"
+            app:icon="@drawable/ic_baseline_fire"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/sportBtn_Floating_Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="top|left"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginBottom="50dp"
+            android:backgroundTint="@color/white"
+            android:contentDescription="Add"
+            app:iconTint="@color/blueSky"
+            android:text="sport"
+            app:icon="@drawable/ic_sport"
+            />
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+            android:layout_height="350dp"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/addPlan_Button"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+                    android:layout_gravity="center"
+                    android:background="@drawable/cusyomized_add_button_map"
+                    app:icon="@drawable/ic_add"
+                    app:backgroundTint="@color/black"
+                    app:iconTint="@color/white"
+                    android:gravity="center"
+                    app:iconGravity="top"
+                    app:iconSize="42dp"
+              />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_gravity="bottom"
+                    android:id="@+id/plansRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/searchAnimation"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintVertical_bias="0.4"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/map_searching"
+                    app:lottie_speed="1"
+                    tools:ignore="ContentDescription" />
+        </LinearLayout>
+
+
 
 
 

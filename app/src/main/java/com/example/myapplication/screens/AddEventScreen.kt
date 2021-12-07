@@ -21,6 +21,8 @@ import android.widget.RadioGroup
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.myapplication.MainActivity
 import com.example.myapplication.MainViewModel
 import com.example.myapplication.MainViewModelFactory
@@ -54,6 +56,8 @@ private var selectedLocation :String ?= null
 private var userToken:String?= null
 private val geocoder:Geocoder ?= null
 private var tempMapLocation : LatLng ?= null
+private var userId:String ?= null
+private var isProfileCompleted: Boolean ?= false
 class AddEventScreen : Fragment(), OnMapReadyCallback {
 
     private lateinit var viewModel: MainViewModel
@@ -69,9 +73,7 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
             Log.d("ggg", p0.position.toString())
             selectedLocation = "${p0.position.latitude},${p0.position.longitude}"
             tempMapLocation = LatLng(p0.position.latitude,p0.position.longitude)
-            binding.addressLocationEditText.visibility = View.VISIBLE
 
-            binding.addressLocationEditText.isEnabled = false
         }
 
         override fun onMarkerDragStart(p0: Marker) {
@@ -111,10 +113,30 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
 
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         userToken = sharedPreferences.getString("User_token",null);
-
+        userId = sharedPreferences.getString("User_Id", null)
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
+        viewModel.getUserProfile(token = "Bearer ${userToken.toString()}", userId = userId!!)
+
+        viewModel.getUserProfileResponse.observe(viewLifecycleOwner , {response ->
+            if (response.isSuccessful){
+                if (response.body()?.data?.profilePictureUrl.isNullOrEmpty()){
+                    Log.d("successful Call", response.body().toString() )
+                    isProfileCompleted = false
+                    Toast.makeText(requireContext(), "\uD83D\uDCCC Please complete your Profile before posting", Toast.LENGTH_LONG).show()
+                    }else {
+                    isProfileCompleted = true
+                }
+                }
+            else{
+                Log.d("some error in calling", response.errorBody().toString())
+
+                //this will be by default to prevent sudden break down
+                isProfileCompleted = true
+            }
+        })
 
         binding.addressLocationEditText.visibility = View.GONE
         binding.addressLocationFromEditText?.visibility = View.GONE
@@ -127,6 +149,19 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
         binding.eventRadioButton.text = Constants.EVENT
         binding.sportRadioButton.text = Constants.SPORT
 
+       binding.parentLayout?.setOnClickListener {
+           FeedScreen().hideKeyboard(binding.editTextPostDescription, requireContext())
+
+       }
+
+        binding.editTextPostDescription.onFocusChangeListener =
+            View.OnFocusChangeListener { v, hasFocus ->
+                if (!hasFocus) {
+                    FeedScreen().hideKeyboard(v, requireContext())
+
+                }
+            }
+
 
         binding.subCategoryPicker.visibility = View.GONE
 
@@ -134,6 +169,8 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
        // binding.confirmPlanLocationButton.visibility = View.GONE
       //  binding.cancelLocationButton.visibility = View.GONE
         binding.uploadPostAnimation.visibility = View.GONE
+
+
 
         val datePicker =
             MaterialDatePicker.Builder.datePicker()
@@ -191,6 +228,7 @@ var pickedDate = convertTimeLongToTime(datePicker.selection!!)
         // --------------> canceling in map
         binding.cancelLocationButton.setOnClickListener {
             binding.parentMapContainer.visibility = View.GONE
+            binding.addressLocationEditText.visibility = View.GONE
             selectedLocation = null
         }
 
@@ -200,6 +238,10 @@ var pickedDate = convertTimeLongToTime(datePicker.selection!!)
             binding.parentMapContainer.visibility = View.GONE
            // binding.addressLocationEditText.setText(convertLatLongToAddress(tempMapLocation!!))
         binding.addressLocationEditText.setText("Location Set ✔️")
+            binding.addressLocationEditText.visibility = View.VISIBLE
+
+            binding.addressLocationEditText.isEnabled = false
+
         }
 
 
@@ -341,65 +383,74 @@ binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedCh
             binding.uploadPostAnimation.visibility = View.VISIBLE
 
             Log.d("whatselectedLocPlan", selectedLocationType.toString())
-         if(inspectCheckedPlanType()){
-             Log.d("hmsm", inspectCheckedPlanType().toString())
-            /* if(selectedLocationType == "Address Location") {
-                 geocodeAddressLocation(binding.addressLocationEditText.text.toString())
-             }*/
-
-             Log.d("whaaaatcat", planCategory.toString())
-             Log.d("whaaaatcat", subCategory.toString())
-             Log.d("whaaaatcat", planDate.toString())
-             Log.d("whaaaatcat", planTime.toString())
-             Log.d("whaaaatcat", selectedLocation.toString())
-             Log.d("whaaaatcat", binding.editTextPostDescription.text.toString())
-
-             viewModel.createPlans(token ="Bearer ${userToken.toString()}", CreatePlanRequest(title = binding.editTextPostDescription.text.toString(),
-                 from = "null",
-                 date =  planDate.toString(),
-                 time = planTime.toString(),
-                 to = selectedLocation.toString(),
-                 category = planCategory.toString(),
-                 subCategory = subCategory.toString()))
-
-             viewModel.createPlanResponse.observe(viewLifecycleOwner, {response ->
-
-                 if (response.isSuccessful){
-                     if (response.body()!!.success){
-                         Log.d("Sending Plan", response.body()!!.success.toString())
-                         Toast.makeText(requireContext(), "Event Uploaded successfully", Toast.LENGTH_LONG).show()
-                         (activity as MainActivity).replaceCurrentFragment(FeedScreen())
-                     }else{
-                         Log.d("Sending Plan", response.body()!!.success.toString())
-                         Toast.makeText(requireContext(), "error while Uploading, try later", Toast.LENGTH_LONG).show()
-                     }
-                     binding.uploadPostAnimation.visibility = View.GONE
-
-                     (activity as MainActivity).replaceCurrentFragment(MapScreen())
-                 }else{
-                     Log.d("Something went Wrong", response.errorBody().toString())
-                     binding.uploadPostAnimation.visibility = View.GONE
-                 }
-
-             })
-         }else {
-             if (selectedLocation == null) {
-                 Toast.makeText(
-                     requireContext(),
-                     "❌ Please give a proper address",
-                     Toast.LENGTH_LONG
-                 ).show()
-
-                 binding.uploadPostAnimation.visibility = View.GONE
-
-             } else {
+            if (isProfileCompleted!!){
 
 
-                 Toast.makeText(requireContext(), "❌ Please fill-in all fields", Toast.LENGTH_LONG)
-                     .show()
-                 binding.uploadPostAnimation.visibility = View.GONE
-             }
-         }
+                if(inspectCheckedPlanType()){
+                    Log.d("hmsm", inspectCheckedPlanType().toString())
+                    /* if(selectedLocationType == "Address Location") {
+                         geocodeAddressLocation(binding.addressLocationEditText.text.toString())
+                     }*/
+
+                    Log.d("whaaaatcat", planCategory.toString())
+                    Log.d("whaaaatcat", subCategory.toString())
+                    Log.d("whaaaatcat", planDate.toString())
+                    Log.d("whaaaatcat", planTime.toString())
+                    Log.d("whaaaatcat", selectedLocation.toString())
+                    Log.d("whaaaatcat", binding.editTextPostDescription.text.toString())
+
+                    viewModel.createPlans(token ="Bearer ${userToken.toString()}", CreatePlanRequest(title = binding.editTextPostDescription.text.toString(),
+                        from = "null",
+                        date =  planDate.toString(),
+                        time = planTime.toString(),
+                        to = selectedLocation.toString(),
+                        category = planCategory.toString(),
+                        subCategory = subCategory.toString()))
+
+                    viewModel.createPlanResponse.observe(viewLifecycleOwner, {response ->
+
+                        if (response.isSuccessful){
+                            if (response.body()!!.success){
+                                Log.d("Sending Plan", response.body()!!.success.toString())
+                                Toast.makeText(requireContext(), "Event Uploaded successfully", Toast.LENGTH_LONG).show()
+                                (activity as MainActivity).replaceCurrentFragment(FeedScreen())
+                            }else{
+                                Log.d("Sending Plan", response.body()!!.success.toString())
+                                Toast.makeText(requireContext(), "error while Uploading, try later", Toast.LENGTH_LONG).show()
+                            }
+                            binding.uploadPostAnimation.visibility = View.GONE
+
+                            (activity as MainActivity).replaceCurrentFragment(MapScreen())
+                        }else{
+                            Log.d("Something went Wrong", response.errorBody().toString())
+                            binding.uploadPostAnimation.visibility = View.GONE
+                        }
+
+                    })
+                }else {
+                    if (selectedLocation == null) {
+                        Toast.makeText(
+                            requireContext(),
+                            "❌ Please give a proper address",
+                            Toast.LENGTH_LONG
+                        ).show()
+
+                        binding.uploadPostAnimation.visibility = View.GONE
+
+                    } else {
+
+
+                        Toast.makeText(requireContext(), "❌ Please fill-in all fields", Toast.LENGTH_LONG)
+                            .show()
+                        binding.uploadPostAnimation.visibility = View.GONE
+                    }
+                }
+
+
+            }else{
+                Toast.makeText(requireContext(), "\uD83D\uDCCC Please complete your Profile before posting", Toast.LENGTH_LONG).show()
+            }
+
 
 
 
@@ -459,7 +510,12 @@ binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedCh
 
         val value: String = java.lang.String.valueOf(binding.subCategoryPicker.getValue())
         if(selectedLocationType == "Address Location") {
-            geocodeAddressLocation(binding.addressLocationEditText.text.toString())
+            if (binding.addressLocationEditText.text.isNullOrEmpty()){
+                return false
+            }else{
+                geocodeAddressLocation(binding.addressLocationEditText.text.toString())
+            }
+
         }
         when(planCategory){
             Constants.SPORT-> {

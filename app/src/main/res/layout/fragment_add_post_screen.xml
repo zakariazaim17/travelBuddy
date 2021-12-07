@@ -9,7 +9,8 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <TextView
             android:paddingLeft="15dp"
@@ -50,7 +51,7 @@
             android:inputType="textCapSentences|textNoSuggestions|textMultiLine"
             android:maxWidth="380dp"
             android:maxLines="8"
-
+            android:focusableInTouchMode="true"
             android:minLines="3"
             android:padding="8dp" />
 

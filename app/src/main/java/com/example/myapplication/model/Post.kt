@@ -17,7 +17,7 @@ data class GetAllPostResponse(
     val userId:String,
     val timestamp:Long,
     val username:String,
-    val profileImageUrl:String,
+    val profilePictureUrl:String,
     val description:String,
     val likeCount:Int = 0,
     val commentCount:Int = 0,

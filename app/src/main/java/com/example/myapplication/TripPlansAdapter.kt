@@ -48,19 +48,21 @@ class TripPlansAdapter(plans: List<GetAllPlansResponse>): RecyclerView.Adapter<T
         val latlongLocationDestination: LatLng = LatLng(latitudeDestination, longitudeDestination)
 
 
-        val origin = singlePlan.from.split(",")
-        val latitudeOrigin:Double = origin[0].toDouble()
-        val longitudeOrigin:Double = origin[1].toDouble()
-        val latlongLocationOrigin: LatLng = LatLng(latitudeOrigin, longitudeOrigin)
+
 
 
 
         holder.binding.parentPlanLayout.setOnClickListener {
 
-            MapScreen().navigateBetweenPlans(latlongLocationDestination)
+            MapScreen().navigateBetweenPlans(latlongLocationDestination, singlePlan.title)
         }
-        holder.binding.tripTimeTextView.text = singlePlan.time
-        holder.binding.tripPlaceOriginTextView.text = convertLatLongToAddress(latlongLocationOrigin)
+        holder.binding.plannerProfileImageImageView.load(singlePlan.profilePictureUrl){
+            crossfade(true)
+            crossfade(100)
+            transformations(CircleCropTransformation())
+        }
+        holder.binding.tripTimeTextView.text = "${singlePlan.date} at ${singlePlan.time}"
+
         holder.binding.tripPlaceDestinationTextView.text =  convertLatLongToAddress(latlongLocationDestination)
 
 

@@ -13,7 +13,7 @@
     <LinearLayout
         android:id="@+id/upperLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:backgroundTint="#FFFAF0"
         android:gravity="top">
@@ -22,32 +22,16 @@
             android:layout_width="163dp"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins"
-            android:text="Buddy Radar🇫🇮"
+            android:text="Buddy Radar"
             android:textAlignment="center"
             android:gravity="center"
             android:textSize="20sp" />
         <Space
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-        <Button
-            android:id="@+id/search_button"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
 
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            app:icon="@drawable/ic_search"
-            app:iconTint="@color/black" />
-        <Button
-            android:id="@+id/filter_button"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:layout_width="wrap_content"
 
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="3dp"
-            app:icon="@drawable/ic_filter"
-            app:iconTint="@color/black" />
     </LinearLayout>
 
         <RelativeLayout
@@ -103,7 +87,6 @@
                 android:id="@+id/addPlan_Floating_Btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom|right"

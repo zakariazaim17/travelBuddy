@@ -59,6 +59,7 @@ class SplashScreen : Fragment() {
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val userToken: String? = sharedPreferences.getString("User_token",null);
         val mapAnimated:Boolean? = sharedPreferences.getBoolean("mapAnimated", false)
+        val isUserLoggedIn:Boolean = sharedPreferences.getBoolean("isLoggedIn", false)
         val editor:SharedPreferences.Editor = sharedPreferences.edit();
         editor.apply {
             putBoolean("mapAnimated", false)
@@ -68,7 +69,7 @@ class SplashScreen : Fragment() {
 
 
 
-            if (userToken != null){
+            if (isUserLoggedIn){
                 (activity as MainActivity).replaceCurrentFragment(MapScreen())
             }else{
                 (activity as MainActivity).replaceCurrentFragment(LoginScreen())

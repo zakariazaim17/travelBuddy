@@ -49,7 +49,7 @@ class EventPlansAdapter(plans: List<GetAllPlansResponse>): RecyclerView.Adapter<
 
         holder.binding.parentPlanLayout.setOnClickListener {
 
-            MapScreen().navigateBetweenPlans(latLongLocation)
+            MapScreen().navigateBetweenPlans(latLongLocation, singlePlan.title)
 
         }
 
@@ -63,6 +63,7 @@ class EventPlansAdapter(plans: List<GetAllPlansResponse>): RecyclerView.Adapter<
            Constants.MUSIC          ->      holder.binding.subCategoryButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_music,0,0,0)
            Constants.THEATER        ->      holder.binding.subCategoryButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_theater,0,0,0)
            Constants.VIDEO_GAMES    ->      holder.binding.subCategoryButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_vide_game,0,0,0)
+           Constants.ART            ->      holder.binding.subCategoryButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_art,0,0,0)
            Constants.OTHER          ->      holder.binding.subCategoryButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_fire,0,0,0)
        }
 

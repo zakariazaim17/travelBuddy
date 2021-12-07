@@ -60,14 +60,7 @@
                 android:background="@color/backOfCard"
                 >
 
-                <Button
-                    android:id="@+id/like_button"
-                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    app:icon="@drawable/ic_celebration"
-                    app:iconTint="@color/black" />
+
 
                 <Button
                     android:id="@+id/comment_button"
@@ -79,30 +72,14 @@
                     app:icon="@drawable/ic__chat_bubble"
                     app:iconTint="@color/black" />
 
-                <Button
-                    android:id="@+id/share_button"
-                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    app:icon="@drawable/ic_share"
 
-                    app:iconTint="@color/black" />
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/save_button"
-                    style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
 
-                    app:icon="@drawable/ic_save"
-
-                    app:iconTint="@color/black" />
             </LinearLayout>
 
             <LinearLayout

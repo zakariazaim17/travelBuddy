@@ -51,4 +51,17 @@ data class UserData (
         val isOwnProfile:Boolean,
         )
 
+data class updateUserResponse (
+    val success: Boolean,
+    val message:String,
+        )
+
+data class udpateUserProfile(
+    val username: String,
+    val profileImageUrl:String,
+    val bio:String,
+    val bannerImageUrl:String = "",
+    val hobbies:List<String>
+)
+
 
