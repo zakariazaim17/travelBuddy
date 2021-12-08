@@ -117,9 +117,9 @@ class AddPostScreen : Fragment() {
 
 
         binding?.addFloatingBtn.setOnClickListener {
-            hideKeyboard(binding.editTextPostDescription)
+            //hideKeyboard(binding.editTextPostDescription)
 
-            //openGalleryForImage()
+            openGalleryForImage()
         }
 
 
