@@ -17,8 +17,8 @@
                    jvmTarget = "1.8"
                 }
 * ### SetUp 
-      git clone https://github.com/zakariazaim17/travelBuddy.git  // as https
-      git clone git@github.com:zakariazaim17/WorkoutCompanion.git // as ssh
+      git clone https://github.com/zakariazaim17/travelBuddy.git  via https
+      
 * **Open project with Android Studio as an existing project, built and run the project with your android device or emulator
 
 ## Technical Specifications
@@ -36,3 +36,5 @@
      * Material design
      * Coil
      * Lottie 
+
+if any quasetions regarding the project. please feel free to email me , i would be happy to help or explain :)
