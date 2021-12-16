@@ -37,4 +37,4 @@
      * Coil
      * Lottie 
 
-if any quasetions regarding the project. please feel free to email me , i would be happy to help or explain :)
+if any questions regarding the project. please feel free to email me , i would be happy to help or explain :)
