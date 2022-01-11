@@ -48,11 +48,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     public fun replaceCurrentFragment(fragment: Fragment) {
-       /* if (fragment is com.example.myapplication.screens.SplashScreen || fragment is LoginScreen || fragment is RegisterScreen || fragment is SinglePostScreen) {
-           binding.bottomNavigation.visibility = View.GONE
-        }else {
-            binding.bottomNavigation.visibility = View.VISIBLE
-        }*/
+
         controlBottomNavigationVisibility(fragment)
         supportFragmentManager.beginTransaction().apply {
             replace(R.id.fragmentContainerView, fragment)

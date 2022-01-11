@@ -66,18 +66,18 @@ class AddEventScreen : Fragment(), OnMapReadyCallback {
 
 
         override fun onMarkerDrag(p0: Marker) {
-            Log.d("ggg", "started")
+            Log.d("marker", "draging")
         }
 
         override fun onMarkerDragEnd(p0: Marker) {
-            Log.d("ggg", p0.position.toString())
+            Log.d("marker", p0.position.toString())
             selectedLocation = "${p0.position.latitude},${p0.position.longitude}"
             tempMapLocation = LatLng(p0.position.latitude,p0.position.longitude)
 
         }
 
         override fun onMarkerDragStart(p0: Marker) {
-            Log.d("ggg", "sttt")
+            Log.d("marker", "starting draging")
         }
 
     }
@@ -489,18 +489,7 @@ binding.planLocationRadioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedCh
         mMap.addMarker(MarkerOptions().position(helsinki).draggable(true))
 
         mMap.setOnMarkerDragListener(markObj)
-        /*val listOfAddress:List<Address> =
-            geocode?.getFromLocationName("Bengalinpolku 1E17,00560,Helsinki",1) as List<Address>
-        val adreess: Address = listOfAddress.get(0)
 
-        Log.d("whatAddress", "${adreess.longitude} && ${adreess.latitude}")
-*/
-
-        /*mMap.setOnMarkerClickListener( GoogleMap.OnMarkerDragListener {
-            @Override fun onMarkerDragEnd(Marker marker){
-                 Log.d("markerUpdate", marker.)
-            }
-        })*/
 
     }
 

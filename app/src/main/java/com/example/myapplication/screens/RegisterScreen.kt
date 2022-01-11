@@ -84,7 +84,7 @@ val repository = Repository()
                 }
 
             })
-            // (activity as MainActivity).replaceCurrentFragment(LoginScreen())
+
         }
     }
 

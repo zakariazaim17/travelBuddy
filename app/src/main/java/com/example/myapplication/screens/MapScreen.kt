@@ -65,15 +65,15 @@ class MapScreen : Fragment(), OnMapReadyCallback {
 
 
         override fun onMarkerDrag(p0: Marker) {
-            Log.d("ggg", "started")
+            Log.d("marker", "draging")
         }
 
         override fun onMarkerDragEnd(p0: Marker) {
-            Log.d("ggg", p0.position.toString())
+            Log.d("marker", p0.position.toString())
         }
 
         override fun onMarkerDragStart(p0: Marker) {
-            Log.d("ggg", "sttt")
+            Log.d("marker", "started draging")
         }
 
     }
@@ -277,7 +277,7 @@ geocode = Geocoder(requireContext())
         val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val mapAnimated:Boolean? = sharedPreferences.getBoolean("mapAnimated", false)
         val editor:SharedPreferences.Editor = sharedPreferences.edit();
-       // mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+
 
 
         mMap = googleMap!!
@@ -290,13 +290,12 @@ geocode = Geocoder(requireContext())
             .tilt(30f)            // Sets the tilt of the camera to 30 degrees
             .build()
         mMap.uiSettings.isCompassEnabled = false
-        //mMap.addMarker(MarkerOptions().position(helsinki))
-
-
-
 
 
            /*
+
+           //realtime permission checking testing
+
            if (ContextCompat.checkSelfPermission(requireContext(),
                    android.Manifest.permission.ACCESS_FINE_LOCATION)
                == PackageManager.PERMISSION_GRANTED) {
@@ -310,6 +309,7 @@ geocode = Geocoder(requireContext())
 
            mMap.uiSettings.isMyLocationButtonEnabled = true
             */
+
            if(mapAnimated == false){
                Log.d("anim", mapAnimated.toString())
                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 5000, null)
@@ -322,58 +322,7 @@ geocode = Geocoder(requireContext())
 
            }
 
-
-
-
+}
 
 }
 
-
-
-
-    /*override fun onMarkerDrag(p0: Marker) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onMarkerDragEnd(p0: Marker) {
-        Log.d("MarkerUpdd", p0.position.toString() )
-    }
-
-    override fun onMarkerDragStart(p0: Marker) {
-        TODO("Not yet implemented")
-    }*/
-
-
-    //  mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F), 4000, null )
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 12F))
-       // mMap.moveCamera(CameraUpdateFactory.zoomTo(15F))
-        //mMap.setMaxZoomPreference(14.0f)
-
-
-}
-
-/*
-helsinki = LatLng( 60.20759890000001, 24.9668617)
-           val cameraPosition = CameraPosition.Builder()
-               .target(helsinki) // Sets the center of the map to Mountain View
-               .zoom(13f)// Sets the zoom
-                        // Sets the orientation of the camera to east
-               .tilt(30f)            // Sets the tilt of the camera to 30 degrees
-               .build()
-           mMap.clear()
-           mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 1000, null)
-           mMap.addMarker(MarkerOptions().position(helsinki).draggable(true))
-        val listOfAddress:List<Address> =
-            geocode?.getFromLocationName("Bengalinpolku 1E17,00560,Helsinki",1) as List<Address>
-           val adreess:Address = listOfAddress.get(0)
-           Log.d("whatAddress", "${adreess.longitude} && ${adreess.latitude}")
-
-
-           /*mMap.setOnMarkerClickListener( GoogleMap.OnMarkerDragListener {
-               @Override fun onMarkerDragEnd(Marker marker){
-                    Log.d("markerUpdate", marker.)
-               }
-           })*/
-
-mMap.setOnMarkerDragListener(markObj)
- */

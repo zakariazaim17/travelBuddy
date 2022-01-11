@@ -25,7 +25,7 @@ private var _binding: FragmentSplashBinding?= null
 private val binding get() = _binding!!
 
 class SplashScreen : Fragment() {
-    // TODO: Rename and change types of parameters
+
 
     private lateinit var viewModel: MainViewModel
 

@@ -117,7 +117,7 @@ class AddPostScreen : Fragment() {
 
 
         binding?.addFloatingBtn.setOnClickListener {
-            //hideKeyboard(binding.editTextPostDescription)
+
 
             openGalleryForImage()
         }
@@ -137,12 +137,7 @@ class AddPostScreen : Fragment() {
 
 
     }
-    //for capturing photo with camera
-   /* fun capturePhoto() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
-    }
-    */
+
 
     fun hideKeyboard(view: View) {
 
@@ -157,12 +152,7 @@ class AddPostScreen : Fragment() {
 
 
 
-/*
-    fun View.hideKeyboard() {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-    */
+
 
     //for picking image from gallery
     private fun openGalleryForImage() {
@@ -273,6 +263,6 @@ class AddPostScreen : Fragment() {
 
 
 
-    //controls the animations of the Floating buttons
+
 
 }

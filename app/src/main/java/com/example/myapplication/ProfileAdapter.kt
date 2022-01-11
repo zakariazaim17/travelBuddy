@@ -45,10 +45,6 @@ class ProfileAdapter(profilePosts: List<GetAllPostResponse>, context: Context):
         holder.binding.descriptionTextView.text = post.description
 
 
-
-
-
-
         holder.binding.postImageImageView.load(post.imageUrl) {
             crossfade(true)
             crossfade(100)
